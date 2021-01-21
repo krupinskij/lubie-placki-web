@@ -1,17 +1,12 @@
 import React from 'react';
-import cake from './cake.svg';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={cake} className="App-logo" alt="logo" />
-        <p>
-          Lubię placki.
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar/>
+    </BrowserRouter>
   );
 }
 
