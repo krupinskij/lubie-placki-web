@@ -2,13 +2,13 @@ import { Formik } from 'formik';
 import React from 'react';
 import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
 import * as Yup from 'yup';
-import { View } from '../../components/page/View';
-import { Component } from '../../components/page/Component';
+import { View } from '../../templates/View';
+import { Component } from '../../templates/Component';
 import { TextField, EmailField, PasswordField } from '../../components/form/Field';
 import { FormActions, FormContainer, FormFields } from '../../components/form/Form';
 import { FormLink } from '../../components/form/FormLink';
 import { SubmitButton } from '../../components/button/Button';
-import { REGISTER } from '../../graphql/register.mutation';
+import { REGISTER_MUTATION } from '../../graphql/register.mutation';
 
 const updateSortValidationSchema = Yup.object().shape({
     email: Yup.string().required().email(),
@@ -23,7 +23,7 @@ export class RegisterPage extends React.Component {
         return(
             <View>
                 <Component>
-                    <Mutation mutation={REGISTER}>
+                    <Mutation mutation={REGISTER_MUTATION}>
                         {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => ( 
                             <Formik
                                 validationSchema={updateSortValidationSchema}
@@ -36,8 +36,7 @@ export class RegisterPage extends React.Component {
                                     username: '',
                                     email:'',
                                     password: '',
-                                    repeatPassword: '',
-                                    avatar: ''
+                                    repeatPassword: ''
                                 }}
                             >
                                 <FormContainer title="Zarejestruj się">
