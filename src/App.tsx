@@ -12,8 +12,10 @@ import { Page } from './templates/Page';
 import { LoginPage } from './views/login/LoginPage';
 import { RegisterPage } from './views/register/RegisterPage';
 
+import config from './config';
+
 const link = createUploadLink({
-  uri: 'http://localhost:3030/graphql',
+  uri: config.API_URL,
   credentials: 'include'
 });
 
