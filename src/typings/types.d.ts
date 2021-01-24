@@ -3,15 +3,15 @@ export namespace Recipes {
         product: string;
         quantity: number;
         unit: string;
-    }
+    };
 
     type Direction = {
         text: string;
-    }
+    };
 
     type Hint = {
         text: string;
-    }
+    };
 
     export type Recipe = {
         __typename?: 'Recipe';

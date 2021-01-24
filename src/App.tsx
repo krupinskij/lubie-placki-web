@@ -14,11 +14,10 @@ import { RegisterPage } from './views/register/RegisterPage';
 
 import config from './config';
 import { HomePage } from './views/home-page/HomePage';
-
-console.log(config);
+import { RecipePage } from './views/recipe-page/RecipePage';
 
 const link = createUploadLink({
-  uri: config.API_URL
+  uri: config.API_URL,
 });
 
 const client = new ApolloClient({
@@ -34,6 +33,7 @@ function App() {
           <Navbar/>
           <UserPanel/>
           <Route exact path='/' component={HomePage} />
+          <Route path='/:id' component={RecipePage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
         </Page>

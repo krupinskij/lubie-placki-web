@@ -28,7 +28,7 @@ export function Recipe({ id, name, description, ingredients, directions, hints}:
         <Component>
             <div className="recipe">
                 <h2 className="recipe-header">
-                    <Link className="recipe-name" to={`/recipe/${id}`}>{name}</Link>
+                    <Link className="recipe-name" to={`/${id}`}>{name}</Link>
                 </h2>
 
                 <div className="recipe-image">
