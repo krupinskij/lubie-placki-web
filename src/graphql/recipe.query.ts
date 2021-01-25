@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export const RECIPE_QUERY = gql`
     query Recipe($id: String!) {
         recipe(id: $id) {
-            id
+            _id
             name
             description
             ingredients {

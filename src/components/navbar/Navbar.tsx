@@ -11,7 +11,7 @@ export default function Navbar() {
       <NavbarLinks position="top">
         <NavbarLink to="/" title="Przepisy"/>
         <NavbarLink to="/random" title="Losuj"/>
-        <NavbarLink to="/add" title="Dodaj"/>
+        <NavbarLink to="/create" title="Dodaj"/>
         <NavbarLink to="/top" title="Topka"/>
       </NavbarLinks>
 

@@ -15,7 +15,7 @@ export namespace Recipes {
 
     export type Recipe = {
         __typename?: 'Recipe';
-        id: string;
+        _id: string;
         name: string;
         description: string;
         ingredients: Ingredient[];
@@ -27,4 +27,9 @@ export namespace Recipes {
         __typename?: 'Recipes';
         recipes: Recipe[];
     };
+
+    export type RandomRecipe = {
+        __typename?: 'RandomRecipe';
+        _id: string;
+    }
 }

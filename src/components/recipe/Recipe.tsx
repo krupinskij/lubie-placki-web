@@ -4,7 +4,7 @@ import { Recipes } from "../../typings/types";
 
 import "./Recipe.scss";
 
-export function Recipe({ id, name, description, ingredients, directions, hints}: Recipes.Recipe) {
+export function Recipe({ _id, name, description, ingredients, directions, hints}: Recipes.Recipe) {
 
     const ings = ingredients.map(ingredient => {
         return (
@@ -28,7 +28,7 @@ export function Recipe({ id, name, description, ingredients, directions, hints}:
         <Component>
             <div className="recipe">
                 <h2 className="recipe-header">
-                    <Link className="recipe-name" to={`/${id}`}>{name}</Link>
+                    <Link className="recipe-name" to={`/recipe/${_id}`}>{name}</Link>
                 </h2>
 
                 <div className="recipe-image">
