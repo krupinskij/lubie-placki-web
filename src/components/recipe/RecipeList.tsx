@@ -6,7 +6,7 @@ interface RecipeListProps {
 }
 
 export function RecipeList({ recipes }: RecipeListProps) {
-    const recipesList = recipes.map(recipe => <Recipe key={recipe.id} {...recipe} />)
+    const recipesList = recipes.map(recipe => <Recipe key={recipe._id} {...recipe} />)
 
     return (
         <>
