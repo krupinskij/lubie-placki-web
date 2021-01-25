@@ -1,7 +1,8 @@
 import React from 'react';
-import { Field } from 'formik';
+import { Field, FieldArray } from 'formik';
 
 import './Field.scss'
+import { Recipes } from '../../typings/types';
 
 interface FieldProps {
     label: string;
@@ -53,6 +54,71 @@ export function PasswordField({ label, name, placeholder }: FieldProps) {
                 type="password" 
                 name={name || "password"} 
                 placeholder={placeholder || "Hasło"}
+            />
+        </div>
+    )
+}
+
+interface SetFieldProps {
+    label: string;
+    name: string;
+}
+
+export function SetField({ label, name }: SetFieldProps) {
+    return(
+        <div className="field">
+            <label className="field-label" htmlFor={name}>{label}</label>
+            <FieldArray
+                name={name}
+                render={arrayHelpers => (
+                    <div className="field-group-container" >
+                        {arrayHelpers.form.values[name].map((_: any, index: number) => (
+                            <div key={index} className="field-group">
+                                <Field className="field-input" name={`${name}[${index}].text`} />
+
+                                <button type="button" onClick={() => arrayHelpers.remove(index)}>-</button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            className="field-group-add-button"
+                            onClick={() => arrayHelpers.push({ text: '' })}
+                        >
+                            +
+                        </button>
+                    </div>
+                )}
+            />
+        </div>
+    )
+}
+
+export function TripleSetField({ label, name }: SetFieldProps) {
+    return(
+        <div className="field">
+            <label className="field-label" htmlFor={name}>{label}</label>
+            <FieldArray
+                name={name}
+                render={arrayHelpers => (
+                    <div className="field-group-container" >
+                        {arrayHelpers.form.values[name].map((_: any, index: number) => (
+                            <div key={index} className="field-group field-group-3">
+                                <Field className="field-input" name={`${name}[${index}].product`} />
+                                <Field className="field-input" type="number" name={`${name}[${index}].quantity`} />
+                                <Field className="field-input" name={`${name}[${index}].unit`} />
+
+                                <button type="button" onClick={() => arrayHelpers.remove(index)}>-</button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            className="field-group-add-button"
+                            onClick={() => arrayHelpers.push({ product: '', quantity: '', unit: '' })}
+                        >
+                            +
+                        </button>
+                    </div>
+                )}
             />
         </div>
     )
