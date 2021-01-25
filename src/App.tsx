@@ -16,6 +16,8 @@ import config from './config';
 import { HomePage } from './views/home-page/HomePage';
 import { RecipePage } from './views/recipe-page/RecipePage';
 
+console.log(config);
+
 const link = createUploadLink({
   uri: config.API_URL,
 });
