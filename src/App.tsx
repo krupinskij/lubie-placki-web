@@ -15,6 +15,7 @@ import { RegisterPage } from './views/register/RegisterPage';
 import config from './config';
 import { HomePage } from './views/home-page/HomePage';
 import { RecipePage } from './views/recipe-page/RecipePage';
+import { RandomRoute } from './components/shared/RandomRoute';
 
 const link = createUploadLink({
   uri: config.API_URL,
@@ -33,7 +34,8 @@ function App() {
           <Navbar/>
           <UserPanel/>
           <Route exact path='/' component={HomePage} />
-          <Route path='/:id' component={RecipePage} />
+          <RandomRoute path='/random' />
+          <Route path='/recipe/:id' component={RecipePage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
         </Page>
