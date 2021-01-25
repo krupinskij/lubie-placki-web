@@ -2,7 +2,6 @@ import React from 'react';
 import { Field, FieldArray } from 'formik';
 
 import './Field.scss'
-import { Recipes } from '../../typings/types';
 
 interface FieldProps {
     label: string;
