@@ -34,8 +34,8 @@ function App() {
           <UserPanel/>
           <Route exact path='/' component={HomePage} />
           <Route path='/:id' component={RecipePage} />
-          <Route path='/register' component={RegisterPage} />
           <Route path='/login' component={LoginPage} />
+          <Route path='/register' component={RegisterPage} />
         </Page>
       </BrowserRouter>
     </ApolloProvider>
