@@ -51,9 +51,21 @@ export function CreateRecipePage() {
                                     <FormFields>
                                         <TextField name="name" placeholder="Podaj nazwę" label="Podaj nazwę:"/>
                                         <TextField name="description" placeholder="Podaj opis" label="Podaj opis:"/>
-                                        <TripleSetField name="ingredients" label="Podaj składniki:" />
-                                        <SetField name="directions" label="Podaj przepis:" />
-                                        <SetField name="hints" label="Podaj wskazówki:" />
+                                        <TripleSetField 
+                                            name="ingredients"
+                                            label="Podaj składniki:"
+                                            placeholder={ ["Produkt", "Ilość", "Jednostka"] }
+                                        />
+                                        <SetField 
+                                            name="directions"
+                                            label="Podaj kroki:"
+                                            placeholder="Podaj krok"
+                                        />
+                                        <SetField
+                                            name="hints"
+                                            label="Podaj wskazówki:"
+                                            placeholder="Podaj wskazówkę"
+                                        />
                                     </FormFields>
                                     <FormActions>                                    
                                         <SubmitButton text="Dodaj przepis"/>

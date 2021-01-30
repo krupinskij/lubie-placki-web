@@ -25,3 +25,25 @@ export function SubmitButton({ text }: SubmitButtonProps) {
         <button className="button submit-button" type="submit">{text}</button>
     )
 }
+
+interface AddButtonProps {
+    text?: string;
+    onClick: () => void;
+}
+
+export function AddButton({ text, onClick }: AddButtonProps) {
+    return(
+        <button className="button add-button" type="submit" onClick={ onClick }>{ text || "+" }</button>
+    )
+}
+
+interface DeleteButtonProps {
+    text?: string;
+    onClick: () => void;
+}
+
+export function DeleteButton({ text, onClick }: DeleteButtonProps) {
+    return(
+        <button className="button delete-button" type="submit" onClick={ onClick }>{ text || "-" }</button>
+    )
+}
