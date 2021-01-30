@@ -5,6 +5,11 @@
 .field-label {
     text-align: right;
     margin-left: 5%;
+
+    &.required::before {
+        content: '*';
+        color: red;
+    }
 }
 
 .field-input {

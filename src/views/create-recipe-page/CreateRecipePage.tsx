@@ -10,7 +10,24 @@ import { View } from "../../templates/View";
 
 const createRecipeValidationSchema = Yup.object().shape({
     name: Yup.string().required(),
-    description: Yup.string().required()
+    description: Yup.string().required(),
+    ingredients: Yup.array().of(
+        Yup.object().shape({
+            product: Yup.string().required(),
+            quantity: Yup.number().required(),
+            unit: Yup.string().required()
+        })
+    ).min(1),
+    directions: Yup.array().of(
+        Yup.object().shape({
+            text: Yup.string().required()
+        })
+    ).min(1),
+    hints: Yup.array().of(
+        Yup.object().shape({
+            text: Yup.string().required()
+        })
+    )
 });
 
 export function CreateRecipePage() {
@@ -20,11 +37,11 @@ export function CreateRecipePage() {
         recipeInput: any
     ) => {
         console.log(recipeInput);
-        return trigger({ 
-            variables: { 
-                credentials: recipeInput 
-            } 
-        }).then(resp => console.log(resp)).catch(err => console.log(err));
+        // return trigger({ 
+        //     variables: { 
+        //         credentials: recipeInput 
+        //     } 
+        // }).then(resp => console.log(resp)).catch(err => console.log(err));
     }
 
     return(
@@ -34,8 +51,8 @@ export function CreateRecipePage() {
                         {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => ( 
                             <Formik
                                 validationSchema={createRecipeValidationSchema}
-                                validateOnBlur={false}
-                                validateOnChange={false}
+                                validateOnBlur={true}
+                                validateOnChange={true}
                                 onSubmit={createRecipeInput => {
                                     createRecipe(trigger, createRecipeInput);
                                 }}
@@ -47,19 +64,31 @@ export function CreateRecipePage() {
                                     hints: []
                                 }}
                             >
-                                <FormContainer title="Dodaj nowy przepis">
+                                { ({ isValid }) => <FormContainer title="Dodaj nowy przepis">
                                     <FormFields>
-                                        <TextField name="name" placeholder="Podaj nazwę" label="Podaj nazwę:"/>
-                                        <TextField name="description" placeholder="Podaj opis" label="Podaj opis:"/>
+                                        <TextField 
+                                            name="name" 
+                                            placeholder="Podaj nazwę" 
+                                            label="Podaj nazwę:"
+                                            required={ true }
+                                        />
+                                        <TextField
+                                            name="description"
+                                            placeholder="Podaj opis"
+                                            label="Podaj opis:"
+                                            required={ true }
+                                        />
                                         <TripleSetField 
                                             name="ingredients"
                                             label="Podaj składniki:"
                                             placeholder={ ["Produkt", "Ilość", "Jednostka"] }
+                                            required={ true }
                                         />
                                         <SetField 
                                             name="directions"
                                             label="Podaj kroki:"
                                             placeholder="Podaj krok"
+                                            required={ true }
                                         />
                                         <SetField
                                             name="hints"
@@ -67,10 +96,10 @@ export function CreateRecipePage() {
                                             placeholder="Podaj wskazówkę"
                                         />
                                     </FormFields>
-                                    <FormActions>                                    
-                                        <SubmitButton text="Dodaj przepis"/>
+                                    <FormActions>                           
+                                        <SubmitButton disabled={ !isValid } text="Dodaj przepis"/>
                                     </FormActions>
-                                </FormContainer>
+                                </FormContainer> } 
                             </Formik>
                         )} 
                     </Mutation>
