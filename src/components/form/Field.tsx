@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, FieldArray } from 'formik';
 
 import './Field.scss'
-import { Recipes } from '../../typings/types';
+import { AddButton, DeleteButton } from '../button/Button';
 
 interface FieldProps {
     label: string;
@@ -62,9 +62,10 @@ export function PasswordField({ label, name, placeholder }: FieldProps) {
 interface SetFieldProps {
     label: string;
     name: string;
+    placeholder: string;
 }
 
-export function SetField({ label, name }: SetFieldProps) {
+export function SetField({ label, name, placeholder }: SetFieldProps) {
     return(
         <div className="field">
             <label className="field-label" htmlFor={name}>{label}</label>
@@ -74,18 +75,15 @@ export function SetField({ label, name }: SetFieldProps) {
                     <div className="field-group-container" >
                         {arrayHelpers.form.values[name].map((_: any, index: number) => (
                             <div key={index} className="field-group">
-                                <Field className="field-input" name={`${name}[${index}].text`} />
+                                <Field 
+                                    className="field-input" 
+                                    placeholder={ placeholder } 
+                                    name={ `${name}[${index}].text` } />
 
-                                <button type="button" onClick={() => arrayHelpers.remove(index)}>-</button>
+                                <DeleteButton onClick={ () => arrayHelpers.remove(index) }/>
                             </div>
                         ))}
-                        <button
-                            type="button"
-                            className="field-group-add-button"
-                            onClick={() => arrayHelpers.push({ text: '' })}
-                        >
-                            +
-                        </button>
+                        <AddButton onClick={ () => arrayHelpers.push({ text: '' }) }/>
                     </div>
                 )}
             />
@@ -93,7 +91,13 @@ export function SetField({ label, name }: SetFieldProps) {
     )
 }
 
-export function TripleSetField({ label, name }: SetFieldProps) {
+interface TripleSetFieldProps {
+    label: string;
+    name: string;
+    placeholder: [string, string, string];
+}
+
+export function TripleSetField({ label, name, placeholder }: TripleSetFieldProps) {
     return(
         <div className="field">
             <label className="field-label" htmlFor={name}>{label}</label>
@@ -103,20 +107,26 @@ export function TripleSetField({ label, name }: SetFieldProps) {
                     <div className="field-group-container" >
                         {arrayHelpers.form.values[name].map((_: any, index: number) => (
                             <div key={index} className="field-group field-group-3">
-                                <Field className="field-input" name={`${name}[${index}].product`} />
-                                <Field className="field-input" type="number" name={`${name}[${index}].quantity`} />
-                                <Field className="field-input" name={`${name}[${index}].unit`} />
+                                <Field 
+                                    className="field-input"
+                                    placeholder={ placeholder[0] }
+                                    name={`${name}[${index}].product`} 
+                                />
+                                <Field 
+                                    className="field-input"
+                                    placeholder={ placeholder[1] }
+                                    type="number" name={`${name}[${index}].quantity`} 
+                                />
+                                <Field 
+                                    className="field-input"
+                                    placeholder={ placeholder[2] }
+                                    name={`${name}[${index}].unit`}
+                                />
 
-                                <button type="button" onClick={() => arrayHelpers.remove(index)}>-</button>
+                                <DeleteButton onClick={ () => arrayHelpers.remove(index) }/>
                             </div>
                         ))}
-                        <button
-                            type="button"
-                            className="field-group-add-button"
-                            onClick={() => arrayHelpers.push({ product: '', quantity: '', unit: '' })}
-                        >
-                            +
-                        </button>
+                        <AddButton onClick={ () => arrayHelpers.push({ product: '', quantity: '', unit: '' }) }/>
                     </div>
                 )}
             />
