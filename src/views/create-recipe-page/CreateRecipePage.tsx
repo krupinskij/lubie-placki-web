@@ -66,17 +66,29 @@ export function CreateRecipePage() {
                             >
                                 { ({ isValid }) => <FormContainer title="Dodaj nowy przepis">
                                     <FormFields>
-                                        <TextField name="name" placeholder="Podaj nazwę" label="Podaj nazwę:"/>
-                                        <TextField name="description" placeholder="Podaj opis" label="Podaj opis:"/>
+                                        <TextField 
+                                            name="name" 
+                                            placeholder="Podaj nazwę" 
+                                            label="Podaj nazwę:"
+                                            required={ true }
+                                        />
+                                        <TextField
+                                            name="description"
+                                            placeholder="Podaj opis"
+                                            label="Podaj opis:"
+                                            required={ true }
+                                        />
                                         <TripleSetField 
                                             name="ingredients"
                                             label="Podaj składniki:"
                                             placeholder={ ["Produkt", "Ilość", "Jednostka"] }
+                                            required={ true }
                                         />
                                         <SetField 
                                             name="directions"
                                             label="Podaj kroki:"
                                             placeholder="Podaj krok"
+                                            required={ true }
                                         />
                                         <SetField
                                             name="hints"
