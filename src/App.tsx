@@ -10,7 +10,7 @@ import Navbar from './components/navbar/Navbar';
 import { UserPanel } from './components/user-panel/UserPanel';
 import { Page } from './templates/Page';
 import { LoginPage } from './views/login/LoginPage';
-import { RegisterPage } from './views/register/RegisterPage';
+import { RegisterPage } from './views/register-page/RegisterPage';
 
 import config from './config';
 import { HomePage } from './views/home-page/HomePage';
