@@ -36,12 +36,11 @@ export function CreateRecipePage() {
         trigger: MutationFunction<any, OperationVariables>,
         recipeInput: any
     ) => {
-        console.log(recipeInput);
-        // return trigger({ 
-        //     variables: { 
-        //         credentials: recipeInput 
-        //     } 
-        // }).then(resp => console.log(resp)).catch(err => console.log(err));
+        return trigger({ 
+            variables: { 
+                credentials: recipeInput 
+            } 
+        }).then(resp => console.log(resp)).catch(err => console.log(err));
     }
 
     return(
