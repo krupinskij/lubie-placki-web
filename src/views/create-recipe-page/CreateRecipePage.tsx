@@ -39,9 +39,8 @@ export function CreateRecipePage() {
         return trigger({ 
             variables: { 
                 credentials: recipeInput 
-            } 
-        })
-        .then(resp => console.log(resp)).catch(err => console.log(err));
+            }
+        }).then(resp => console.log(resp)).catch(err => console.log(err));
     }
 
     return(
