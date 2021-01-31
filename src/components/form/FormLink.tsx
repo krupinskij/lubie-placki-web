@@ -13,7 +13,7 @@ interface FormLinkProps {
 export function FormLink({ pretext, text, to }: FormLinkProps) {
     return(
         <div className="form-link">
-            {pretext} <Link to={to}>{text}</Link>
+            {pretext} <Link className="form-link-text" to={to}>{text}</Link>
         </div>
     )
 }

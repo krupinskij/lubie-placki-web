@@ -2,6 +2,8 @@ import womanIcon from "../../assets/woman-icon.svg";
 import manIcon from "../../assets/man-icon.svg";
 import { UserPanel } from "./UserPanel";
 import { UserSession } from "../../utils/user-session";
+import { LoginFormWithRouter } from "../forms/LoginForm";
+import { PanelButton } from "../button/Button";
 
 export function UserPanelHeader() {
     return (
@@ -17,7 +19,7 @@ export function UserPanelHeader() {
 export function UnknownUserPanelBody() {
     return (
         <div className="user-panel-body">
-            FORMULARZ LOGOWANIA
+            <LoginFormWithRouter mini={ true } />
         </div>
     )
 }
@@ -25,7 +27,9 @@ export function UnknownUserPanelBody() {
 export function UserPanelBody() {
     return (
         <div className="user-panel-body">
-            PANEL UŻYTKOWNIKA
+            <PanelButton text="Mój profil" onClick={ () => { console.log("Mój profil") }} />
+            <PanelButton text="Edytuj profil" onClick={ () => { console.log("Edytuj profil") }} />
+            <PanelButton text="Wyloguj się" onClick={ () => { UserSession.removeToken() }} />
         </div>
     )
 }

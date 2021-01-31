@@ -2,7 +2,7 @@
     position: fixed;
     right: 30px;
     top: 5px;
-    width: 230px;
+    width: 270px;
     height: 60px;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0px 0px 4px rgb(100, 100, 100);
@@ -32,10 +32,14 @@
     }
 
     .user-panel-body {
-
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
     }
 }
 
 .user-panel:hover {
-    height: 200px;
+    height: 270px;
 }
