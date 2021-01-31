@@ -56,18 +56,22 @@ function LoginForm({ history, mini }: LoginFormProps) {
                     { ({ isValid }) => <FormContainer title={ mini ? '' : "Zaloguj się" }>
                         <FormFields>
                             <EmailField 
-                                label="Podaj email:"
+                                label={ mini ? '' : "Podaj email:" }
                                 required={ true }
                             />
                             <PasswordField 
-                                label="Podaj hasło:"
+                                label={ mini ? '' : "Podaj hasło:" }
                                 required={ true }
                             />
                         </FormFields>
                         <FormActions>                                    
                             <SubmitButton disabled={ !isValid } text="Zaloguj się"/>
                         </FormActions>
-                        <FormLink pretext="Nie masz jeszcze konta?" text="Zarejestuj się" to="/register"/> 
+                        <FormLink 
+                            pretext={ mini ? 'lub' : "Nie masz jeszcze konta?" } 
+                            text="Zarejestuj się" 
+                            to="/register"
+                        /> 
                     </FormContainer> }
                 </Formik>
             )} 

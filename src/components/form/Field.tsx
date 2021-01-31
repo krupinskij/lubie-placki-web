@@ -20,10 +20,10 @@ interface TextFieldProps extends FieldProps {
 export function TextField({ label, type, name, placeholder, required }: TextFieldProps) {
     return(
         <div className="field">
-            <label
-                className={ `field-label ${required ? 'required' : '' }` }
-                htmlFor={name}
-            >{label}</label>
+            { label && <label
+                className={ `field-label ${ required ? 'required' : '' }` }
+                htmlFor={ name }
+            >{ label }</label> }
             <Field 
                 className="field-input"
                 id={name}
@@ -38,10 +38,10 @@ export function TextField({ label, type, name, placeholder, required }: TextFiel
 export function EmailField({ label, name, placeholder, required }: FieldProps) {
     return(
         <div className="field">
-            <label
-                className={ `field-label ${required ? 'required' : '' }` }
-                htmlFor={name || "email"}
-            >{label}</label>
+            { label && <label
+                className={ `field-label ${ required ? 'required' : '' }` }
+                htmlFor={ name || "email" }
+            >{ label }</label> }
             <Field 
                 className="field-input"
                 type="email" 
@@ -55,10 +55,10 @@ export function EmailField({ label, name, placeholder, required }: FieldProps) {
 export function PasswordField({ label, name, placeholder, required }: FieldProps) {
     return(
         <div className="field">
-            <label
-                className={ `field-label ${required ? 'required' : '' }` }
-                htmlFor={name || "password"}
-            >{label}</label>
+            { label && <label
+                className={ `field-label ${ required ? 'required' : '' }` }
+                htmlFor={ name || "password" }
+            >{ label }</label> }
             <Field 
                 className="field-input"
                 type="password" 
@@ -79,10 +79,10 @@ interface SetFieldProps {
 export function SetField({ label, name, placeholder, required }: SetFieldProps) {
     return(
         <div className="field">
-            <label
-                className={ `field-label ${required ? 'required' : '' }` }
-                htmlFor={name}
-            >{label}</label>
+            { label && <label
+                className={ `field-label ${ required ? 'required' : '' }` }
+                htmlFor={ name }
+            >{ label }</label> }
             <FieldArray
                 name={name}
                 render={arrayHelpers => (
@@ -115,10 +115,10 @@ interface TripleSetFieldProps {
 export function TripleSetField({ label, name, placeholder, required }: TripleSetFieldProps) {
     return(
         <div className="field">
-            <label
-                className={ `field-label ${required ? 'required' : '' }` }
-                htmlFor={name}
-            >{label}</label>
+            { label && <label
+                className={ `field-label ${ required ? 'required' : '' }` }
+                htmlFor={ name }
+            >{ label }</label> }
             <FieldArray
                 name={name}
                 render={arrayHelpers => (

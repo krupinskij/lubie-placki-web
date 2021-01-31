@@ -32,10 +32,14 @@
     }
 
     .user-panel-body {
-
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
     }
 }
 
 .user-panel:hover {
-    height: 340px;
+    height: 270px;
 }

@@ -48,3 +48,14 @@ export function DeleteButton({ text, onClick }: DeleteButtonProps) {
         <button className="button delete-button" type="button" onClick={ onClick }>{ text || "-" }</button>
     )
 }
+
+interface PanelButtonProps {
+    text: string;
+    onClick: () => void;
+}
+
+export function PanelButton({ text, onClick }: PanelButtonProps) {
+    return(
+        <button className="button panel-button" type="button" onClick={ onClick }>{ text }</button>
+    )
+}
