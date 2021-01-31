@@ -7,11 +7,11 @@ interface AuthTokenPayload {
 }
 
 export class UserSession {
-    public static isActive(): boolean {
-        return !!UserSession.getId();
+    public static get isActive(): boolean {
+        return !!UserSession.userId;
     }
 
-    public static getId(): string {
+    public static get userId(): string {
         const token = UserSession.decodedToken;
 
         if (!token) {
@@ -21,7 +21,7 @@ export class UserSession {
         return token.id;
     }
 
-    public static getUsername(): string {
+    public static get username(): string {
         const token = UserSession.decodedToken;
 
         if (!token) {
@@ -29,6 +29,10 @@ export class UserSession {
         }
 
         return token.username;
+    }
+
+    public static saveToken(token: string): void {
+        localStorage.setItem(config.TOKEN_KEY, token);
     }
 
     private static get decodedToken(): AuthTokenPayload | undefined {
