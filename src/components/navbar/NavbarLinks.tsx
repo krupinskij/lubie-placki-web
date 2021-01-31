@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { UserSession } from '../../utils/user-session';
 
 import './NavbarLinks.scss'
 
@@ -18,13 +19,14 @@ export function NavbarLinks({ position, children }: NavbarLinksProps) {
 
 interface NavbarLinkProps {
   to: string,
-  title: string
+  title: string,
+  privateLink?: boolean
 }
 
-export function NavbarLink({ to, title }: NavbarLinkProps) {
+export function NavbarLink({ to, title, privateLink }: NavbarLinkProps) {
   return (
     <div className="navbar-item">
-      <Link className="navbar-link" to={to}>
+      <Link className={`navbar-link ${ privateLink && !UserSession.isActive ? 'disabled' : '' }`} to={to}>
         {title}
       </Link>
     </div>

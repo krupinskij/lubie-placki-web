@@ -9,28 +9,33 @@ import { FormActions, FormContainer, FormFields } from '../../components/form/Fo
 import { FormLink } from '../../components/form/FormLink';
 import { SubmitButton } from '../../components/button/Button';
 import { REGISTER_MUTATION } from '../../graphql/register.mutation';
+import { UserSession } from '../../utils/user-session';
+import { RouteComponentProps, withRouter } from 'react-router';
 
-const updateSortValidationSchema = Yup.object().shape({
+const registerValidationSchema = Yup.object().shape({
     email: Yup.string().required().email(),
     username: Yup.string().required().min(5),
     password: Yup.string().required().min(5),
     repeatPassword: Yup.string().required().oneOf([Yup.ref('password')])
 });
 
-export function RegisterPage() {
+function RegisterPage({ history }: RouteComponentProps<void>) {
 
     const register = (
         trigger: MutationFunction<any, OperationVariables>,
         registerInput: any
     ) => {
-        console.log(registerInput);
-        // return trigger({ 
-        //     variables: { 
-        //         credentials: loginInput 
-        //     } 
-        // })
-        // .then(resp => console.log(resp))
-        // .catch(err => console.log(err));
+        return trigger({ 
+            variables: { 
+                credentials: registerInput 
+            } 
+        })
+        .then(resp => {
+            const token = resp.data.register.token;
+            UserSession.saveToken(token);
+            history.push("/");
+        })
+        .catch(err => console.log(err));
     }
     
     return(
@@ -39,7 +44,7 @@ export function RegisterPage() {
                 <Mutation mutation={REGISTER_MUTATION}>
                     {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => ( 
                         <Formik
-                            validationSchema={updateSortValidationSchema}
+                            validationSchema={registerValidationSchema}
                             validateOnBlur={true}
                             validateOnChange={true}
                             onSubmit={registerInput => {
@@ -61,7 +66,7 @@ export function RegisterPage() {
                                         required={ true }
                                     />
                                     <EmailField 
-                                        label="Podaj email:" 
+                                        label="Podaj email:"
                                         required={ true }
                                     />
                                     <PasswordField 
@@ -76,7 +81,7 @@ export function RegisterPage() {
                                     />
                                 </FormFields>
                                 <FormActions>
-                                    <SubmitButton disabled={ !isValid} text="Zarejestruj się"/>
+                                    <SubmitButton disabled={ !isValid } text="Zarejestruj się"/>
                                 </FormActions>
                                 <FormLink pretext="Masz już konto?" text="Zaloguj się" to="/login"/> 
                             </FormContainer> } 
@@ -87,3 +92,5 @@ export function RegisterPage() {
         </View>
     )
 }
+
+export const RegisterPageWithRouter = withRouter(RegisterPage);
