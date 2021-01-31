@@ -10,8 +10,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import Navbar from './components/navbar/Navbar';
 import { UserPanel } from './components/user-panel/UserPanel';
 import { Page } from './templates/Page';
-import { LoginPageWithRouter } from './views/login-page/LoginPage';
-import { RegisterPageWithRouter } from './views/register-page/RegisterPage';
+import { LoginPage } from './views/login-page/LoginPage';
+import { RegisterPage } from './views/register-page/RegisterPage';
 
 import config from './config';
 import { HomePage } from './views/home-page/HomePage';
@@ -58,8 +58,8 @@ function App() {
           <Route path='/recipe/:id' component={RecipePage} />
           <PrivateRoute path='/create' component={CreateRecipePage} />
 
-          <Route path='/login' component={LoginPageWithRouter} />
-          <Route path='/register' component={RegisterPageWithRouter} />
+          <Route path='/login' component={LoginPage} />
+          <Route path='/register' component={RegisterPage} />
         </Page>
       </BrowserRouter>
     </ApolloProvider>

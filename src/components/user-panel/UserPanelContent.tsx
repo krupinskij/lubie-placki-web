@@ -2,6 +2,7 @@ import womanIcon from "../../assets/woman-icon.svg";
 import manIcon from "../../assets/man-icon.svg";
 import { UserPanel } from "./UserPanel";
 import { UserSession } from "../../utils/user-session";
+import { LoginFormWithRouter } from "../forms/LoginForm";
 
 export function UserPanelHeader() {
     return (
@@ -17,7 +18,7 @@ export function UserPanelHeader() {
 export function UnknownUserPanelBody() {
     return (
         <div className="user-panel-body">
-            FORMULARZ LOGOWANIA
+            <LoginFormWithRouter mini={ true } />
         </div>
     )
 }
