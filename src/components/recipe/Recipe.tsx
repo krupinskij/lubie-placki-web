@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Component } from "../../templates/Component";
 import { Recipes } from "../../typings/types";
+import { getFullDate } from "../../utils/date-time";
 
 import "./Recipe.scss";
 
-export function Recipe({ _id, name, description, ingredients, directions, hints}: Recipes.Recipe) {
+export function Recipe({ _id, name, description, ingredients, directions, hints, createdAt, owner }: Recipes.Recipe) {
 
     const ings = ingredients.map(ingredient => {
         return (
@@ -31,8 +32,13 @@ export function Recipe({ _id, name, description, ingredients, directions, hints}
                     <Link className="recipe-name" to={`/recipe/${_id}`}>{name}</Link>
                 </h2>
 
+                <div className="recipe-meta">
+                    <div>Dodano dnia: { getFullDate(createdAt) }</div> 
+                    <div>Autor: <Link className="recipe-owner" to={`/profile/${ owner._id }`}>{ owner.username }</Link></div>
+                </div>
+
                 <div className="recipe-image">
-                    <img src="https://via.placeholder.com/650x300" alt="recipe photo"/>
+                    <img src="https://via.placeholder.com/650x300" alt="recipe"/>
                 </div>
 
                 <div className="recipe-section">

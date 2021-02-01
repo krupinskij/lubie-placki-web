@@ -17,6 +17,11 @@ export const RECIPE_QUERY = gql`
             hints {
                 text
             }
+            createdAt
+            owner {
+                _id
+                username
+            }
         }
     }
 `;

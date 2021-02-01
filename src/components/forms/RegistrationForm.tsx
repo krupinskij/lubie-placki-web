@@ -44,7 +44,8 @@ function RegistrationForm({ history }: RouteComponentProps<void>) {
                     validateOnBlur={true}
                     validateOnChange={true}
                     onSubmit={registerInput => {
-                        register(trigger, registerInput);
+                        const { repeatPassword, ...rest } = registerInput;
+                        register(trigger, rest);
                     }}
                     initialValues={{
                         username: '',

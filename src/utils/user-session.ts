@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode';
 import config from "../config";
 
 interface AuthTokenPayload {
-    id: string;
+    _id: string;
     username: string;
 }
 
@@ -18,7 +18,7 @@ export class UserSession {
             return '';
         }
 
-        return token.id;
+        return token._id;
     }
 
     public static get username(): string {
