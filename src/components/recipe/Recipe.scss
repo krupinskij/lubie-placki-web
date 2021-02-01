@@ -2,11 +2,21 @@
     font-size: 250%;
     margin: 5px 0;
     text-align: center;
+
+    .recipe-name {
+        text-decoration: none;
+        color: black;
+    }
 }
-  
-.recipe-name {
-    text-decoration: none;
-    color: black;
+
+.recipe-meta {
+    text-align: center;
+    font-size: 75%;
+    margin: 5px;
+
+    .recipe-owner {
+        color: black;
+    }
 }
 
 .recipe-image {

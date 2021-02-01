@@ -21,6 +21,11 @@ export namespace Recipes {
         ingredients: Ingredient[];
         directions: Direction[];
         hints: Hint[];
+        createdAt: number;
+        owner: {
+            _id: string;
+            username: string;
+        }
     };
 
     export type Recipes = {
