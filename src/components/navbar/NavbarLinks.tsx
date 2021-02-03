@@ -4,6 +4,8 @@ import { UserSession } from '../../utils/user-session';
 
 import './NavbarLinks.scss'
 
+import classnames from 'classnames';
+
 interface NavbarLinksProps {
   position: "top" | "bottom",
   children: React.ReactNode
@@ -11,7 +13,7 @@ interface NavbarLinksProps {
 
 export function NavbarLinks({ position, children }: NavbarLinksProps) {
   return (
-			<div className={`navbar-links navbar-links--${position}`}>
+			<div className={ classnames('navbar-links', { 'navbar-links--top': position==="top" }, { 'navbar-links--bottom': position==="bottom" }) }>
         {children}
       </div>
 	)
@@ -26,7 +28,7 @@ interface NavbarLinkProps {
 export function NavbarLink({ to, title, privateLink }: NavbarLinkProps) {
   return (
     <div className="navbar-item">
-      <Link className={`navbar-link ${ privateLink && !UserSession.isActive ? 'disabled' : '' }`} to={to}>
+      <Link className={ classnames('navbar-link', { disabled: privateLink && !UserSession.isActive }) } to={to}>
         {title}
       </Link>
     </div>

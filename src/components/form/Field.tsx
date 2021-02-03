@@ -4,6 +4,8 @@ import { Field, FieldArray } from 'formik';
 import './Field.scss'
 import { AddButton, DeleteButton } from '../button/Button';
 
+import classnames from 'classnames';
+
 interface FieldProps {
     label: string;
     name?: string;
@@ -21,7 +23,7 @@ export function TextField({ label, type, name, placeholder, required }: TextFiel
     return(
         <div className="field">
             { label && <label
-                className={ `field-label ${ required ? 'required' : '' }` }
+                className={ classnames('field-label', { required }) }
                 htmlFor={ name }
             >{ label }</label> }
             <Field 
@@ -39,7 +41,7 @@ export function EmailField({ label, name, placeholder, required }: FieldProps) {
     return(
         <div className="field">
             { label && <label
-                className={ `field-label ${ required ? 'required' : '' }` }
+                className={ classnames('field-label', { required }) }
                 htmlFor={ name || "email" }
             >{ label }</label> }
             <Field 
@@ -56,7 +58,7 @@ export function PasswordField({ label, name, placeholder, required }: FieldProps
     return(
         <div className="field">
             { label && <label
-                className={ `field-label ${ required ? 'required' : '' }` }
+                className={ classnames('field-label', { required }) }
                 htmlFor={ name || "password" }
             >{ label }</label> }
             <Field 
@@ -80,7 +82,7 @@ export function SetField({ label, name, placeholder, required }: SetFieldProps) 
     return(
         <div className="field">
             { label && <label
-                className={ `field-label ${ required ? 'required' : '' }` }
+                className={ classnames('field-label', { required }) }
                 htmlFor={ name }
             >{ label }</label> }
             <FieldArray
@@ -116,7 +118,7 @@ export function TripleSetField({ label, name, placeholder, required }: TripleSet
     return(
         <div className="field">
             { label && <label
-                className={ `field-label ${ required ? 'required' : '' }` }
+                className={ classnames('field-label', { required }) }
                 htmlFor={ name }
             >{ label }</label> }
             <FieldArray
