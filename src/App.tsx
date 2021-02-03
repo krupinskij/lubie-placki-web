@@ -20,10 +20,12 @@ import { RegisterPage } from './views/register-page/RegisterPage';
 import { RandomRoute } from './components/shared/RandomRoute';
 import { PrivateRoute } from './components/shared/PrivateRoute';
 
+import Cookie from 'js-cookie';
+
 import config from './config';
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem(config.TOKEN_KEY);
+  const token = Cookie.get(config.TOKEN_KEY);
   return token ? {
     headers: {
       ...headers,
