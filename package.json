@@ -64,8 +64,7 @@
   },
   "lint-staged": {
     "*.{js,json,ts,tsx,css,scss,md}": [
-      "prettier --single-quote --write",
-      "git add"
+      "prettier --single-quote --write"
     ]
   },
   "devDependencies": {
