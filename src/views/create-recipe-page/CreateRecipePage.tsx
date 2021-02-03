@@ -1,12 +1,15 @@
 import { Formik } from "formik";
 import { Mutation, MutationFunction, MutationResult, OperationVariables } from "react-apollo";
-import * as Yup from 'yup';
+
 import { SubmitButton } from "../../components/button/Button";
 import { TripleSetField, SetField, TextField } from "../../components/form/Field";
 import { FormActions, FormContainer, FormFields } from "../../components/form/Form";
-import { CREATE_RECIPE_MUTATION } from "../../graphql/create-recipe.mutation";
 import { Component } from "../../templates/Component";
 import { View } from "../../templates/View";
+
+import { CREATE_RECIPE_MUTATION } from "../../graphql/create-recipe.mutation";
+
+import * as Yup from 'yup';
 
 const createRecipeValidationSchema = Yup.object().shape({
     name: Yup.string().required(),

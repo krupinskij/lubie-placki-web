@@ -1,6 +1,6 @@
-import './NavbarHeader.scss'
-
 import cake from "../../assets/cake.svg";
+
+import './NavbarHeader.scss'
 
 interface NavbarHeaderProps {
   title: string;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Field, FieldArray } from 'formik';
 
-import './Field.scss'
 import { AddButton, DeleteButton } from '../button/Button';
 
 import classnames from 'classnames';
+
+import './Field.scss'
 
 interface FieldProps {
     label: string;

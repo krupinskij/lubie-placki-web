@@ -1,9 +1,10 @@
+import { PanelButton } from "../button/Button";
+import { LoginFormWithRouter } from "../forms/LoginForm";
+
+import { UserSession } from "../../utils/user-session";
+
 import womanIcon from "../../assets/woman-icon.svg";
 import manIcon from "../../assets/man-icon.svg";
-import { UserPanel } from "./UserPanel";
-import { UserSession } from "../../utils/user-session";
-import { LoginFormWithRouter } from "../forms/LoginForm";
-import { PanelButton } from "../button/Button";
 
 export function UserPanelHeader() {
     return (

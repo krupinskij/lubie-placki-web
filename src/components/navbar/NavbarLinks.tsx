@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { UserSession } from '../../utils/user-session';
 
-import './NavbarLinks.scss'
-
 import classnames from 'classnames';
+
+import './NavbarLinks.scss'
 
 interface NavbarLinksProps {
   position: "top" | "bottom",

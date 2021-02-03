@@ -1,4 +1,5 @@
 import { Redirect, Route } from "react-router";
+
 import { UserSession } from "../../utils/user-session";
 
 export function PrivateRoute({ component: Component, ...rest }: any) {

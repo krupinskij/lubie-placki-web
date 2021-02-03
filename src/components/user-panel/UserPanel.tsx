@@ -1,7 +1,8 @@
+import { UserPanelHeader, UnknownUserPanelBody, UserPanelBody } from "./UserPanelContent";
+
 import { UserSession } from "../../utils/user-session";
 
 import "./UserPanel.scss";
-import { UserPanelHeader, UnknownUserPanelBody, UserPanelBody } from "./UserPanelContent";
 
 export function UserPanel() {
     return (

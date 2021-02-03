@@ -1,5 +1,6 @@
-import { Recipes } from "../../typings/types";
 import { Recipe } from "./Recipe";
+
+import { Recipes } from "../../typings/types";
 
 interface RecipeListProps {
     recipes: Recipes.Recipe[];

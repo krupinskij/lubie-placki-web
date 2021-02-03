@@ -1,26 +1,26 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import { ApolloProvider } from 'react-apollo';
-import { ApolloLink } from 'apollo-link';
-import { createUploadLink } from 'apollo-upload-client';
-import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client'
+import { ApolloLink } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
+import { createUploadLink } from 'apollo-upload-client';
+import { ApolloProvider } from 'react-apollo';
 
-import Navbar from './components/navbar/Navbar';
+import { Navbar } from './components/navbar/Navbar';
 import { UserPanel } from './components/user-panel/UserPanel';
 import { Page } from './templates/Page';
+import { CreateRecipePage } from './views/create-recipe-page/CreateRecipePage';
+import { HomePage } from './views/home-page/HomePage';
 import { LoginPage } from './views/login-page/LoginPage';
+import { RecipePage } from './views/recipe-page/RecipePage';
 import { RegisterPage } from './views/register-page/RegisterPage';
 
-import config from './config';
-import { HomePage } from './views/home-page/HomePage';
-import { RecipePage } from './views/recipe-page/RecipePage';
 import { RandomRoute } from './components/shared/RandomRoute';
 import { PrivateRoute } from './components/shared/PrivateRoute';
-import { CreateRecipePage } from './views/create-recipe-page/CreateRecipePage';
 
-import { setContext } from 'apollo-link-context';
+import config from './config';
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(config.TOKEN_KEY);

@@ -3,7 +3,7 @@ import { NavbarLinks, NavbarLink } from './NavbarLinks';
 
 import './Navbar.scss'
 
-export default function Navbar() {
+export function Navbar() {
   return (
 		<nav className="navbar">
       <NavbarHeader title="Lubię Placki"/>

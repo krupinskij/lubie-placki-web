@@ -1,9 +1,11 @@
 import React from 'react';
-import { View } from '../../templates/View';
 import { Query, QueryResult } from 'react-apollo';
+
+import { RecipeList } from '../../components/recipe/RecipeList';
+import { View } from '../../templates/View';
+
 import { RECIPES_QUERY } from '../../graphql/recipes.query';
 import { Recipes } from '../../typings/types';
-import { RecipeList } from '../../components/recipe/RecipeList';
 
 export function HomePage() {
     return(

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+
 import { Component } from "../../templates/Component";
 import { Recipes } from "../../typings/types";
+
 import { getFullDate } from "../../utils/date-time";
 
 import "./Recipe.scss";

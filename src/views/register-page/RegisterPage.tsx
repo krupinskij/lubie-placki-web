@@ -1,7 +1,8 @@
 import React from 'react';
-import { View } from '../../templates/View';
-import { Component } from '../../templates/Component';
+
 import { RegistrationFormWithRouter } from '../../components/forms/RegistrationForm';
+import { Component } from '../../templates/Component';
+import { View } from '../../templates/View';
 
 export function RegisterPage() {
     return(

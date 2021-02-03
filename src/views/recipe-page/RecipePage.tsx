@@ -1,10 +1,12 @@
 import React from 'react';
-import { View } from '../../templates/View';
 import { Query, QueryResult } from 'react-apollo';
+import { RouteComponentProps } from 'react-router';
+
+import { Recipe } from '../../components/recipe/Recipe';
+import { View } from '../../templates/View';
+
 import { RECIPE_QUERY } from '../../graphql/recipe.query';
 import { Recipes } from '../../typings/types';
-import { Recipe } from '../../components/recipe/Recipe';
-import { RouteComponentProps } from 'react-router';
 
 interface RecipeMatchParams {
     id: string;

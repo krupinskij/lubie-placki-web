@@ -1,14 +1,17 @@
-import { Formik } from 'formik';
 import React from 'react';
+import { Formik } from 'formik';
 import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
-import * as Yup from 'yup';
+import { RouteComponentProps, withRouter } from 'react-router';
+
+import { SubmitButton } from '../../components/button/Button';
 import { EmailField, PasswordField } from '../../components/form/Field';
 import { FormActions, FormContainer, FormFields } from '../../components/form/Form';
 import { FormLink } from '../../components/form/FormLink';
-import { SubmitButton } from '../../components/button/Button';
+
 import { LOGIN_MUTATION } from '../../graphql/login.mutation';
 import { UserSession } from '../../utils/user-session';
-import { RouteComponentProps, withRouter } from 'react-router';
+
+import * as Yup from 'yup';
 
 const loginValidationSchema = Yup.object().shape({
     email: Yup.string().required().email(),
