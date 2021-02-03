@@ -24,15 +24,15 @@ export function RecipePage(props: RecipeProps) {
                     id: props.match.params.id
                 }}
             >
-                {({ data, loading }: QueryResult<Recipes.Recipe>) => {
+                {({ data, error }: QueryResult<Recipes.Recipe>) => {
                     if(data) {
                         return <Recipe {...(data as any).recipe} />;
                     }
-                    if(loading) {
-                        <div>Loading...</div>
+                    if(error) {
+                        <div>Wystąpił błąd</div>
                     }
 
-                    return <div>Wystąpił błąd</div>
+                    return <div>Loading...</div>
                 }}
             </Query>
         </View>

@@ -11,14 +11,14 @@ export function HomePage() {
     return(
         <View>
             <Query query={RECIPES_QUERY}>
-                {({ data, loading }: QueryResult<Recipes.Recipes>) => {
+                {({ data, error }: QueryResult<Recipes.Recipes>) => {
                     if(data) {
                         return <RecipeList recipes={data.recipes} />;
                     }
-                    if(loading) {
-                        <div>Loading...</div>
+                    if(error) {
+                        <div>Wystąpił błąd</div>
                     }
-                    return <div>Wystąpił błąd</div>
+                    return <div>Loading...</div>;
                 }} 
             </Query>
         </View>
