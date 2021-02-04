@@ -5,11 +5,11 @@ import { Component } from '../../templates/Component';
 import { View } from '../../templates/View';
 
 export function LoginPage() {
-    return(
-        <View>
-            <Component>
-                <LoginFormWithRouter/>
-            </Component>
-        </View>
-    )
+  return (
+    <View>
+      <Component>
+        <LoginFormWithRouter />
+      </Component>
+    </View>
+  );
 }
