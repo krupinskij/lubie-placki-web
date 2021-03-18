@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloLink } from 'apollo-link';
 import { createUploadLink } from 'apollo-upload-client';
-import { ApolloClient } from 'apollo-client'
+import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import Navbar from './components/navbar/Navbar';
@@ -24,14 +24,16 @@ import { setContext } from 'apollo-link-context';
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(config.TOKEN_KEY);
-  return token ? {
-    headers: {
-      ...headers,
-      authorization: `Bearer ${token}`
-    }
-  } : {
-    headers
-  }
+  return token
+    ? {
+        headers: {
+          ...headers,
+          authorization: `Bearer ${token}`,
+        },
+      }
+    : {
+        headers,
+      };
 });
 
 const httpLink = createUploadLink({
@@ -39,11 +41,8 @@ const httpLink = createUploadLink({
 });
 
 const client = new ApolloClient({
-  link: ApolloLink.from([
-    authLink,
-    httpLink
-  ]),
-  cache: new InMemoryCache()
+  link: ApolloLink.from([authLink, httpLink]),
+  cache: new InMemoryCache(),
 });
 
 function App() {
@@ -51,15 +50,15 @@ function App() {
     <ApolloProvider client={client}>
       <BrowserRouter>
         <Page>
-          <Navbar/>
-          <UserPanel/>
-          <Route exact path='/' component={HomePage} />
-          <RandomRoute path='/random' />
-          <Route path='/recipe/:id' component={RecipePage} />
-          <PrivateRoute path='/create' component={CreateRecipePage} />
+          <Navbar />
+          <UserPanel />
+          <Route exact path="/" component={HomePage} />
+          <RandomRoute path="/random" />
+          <Route path="/recipe/:id" component={RecipePage} />
+          <PrivateRoute path="/create" component={CreateRecipePage} />
 
-          <Route path='/login' component={LoginPage} />
-          <Route path='/register' component={RegisterPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
         </Page>
       </BrowserRouter>
     </ApolloProvider>
