@@ -1,47 +1,46 @@
 .button {
-    padding: 10px 20px;
-    font-size: 20px;
+  padding: 10px 20px;
+  font-size: 20px;
 
-    border: 1px solid black;
-    color: white;
-    font-family: "Quicksand", sans-serif;
+  border: 1px solid black;
+  color: white;
+  font-family: 'Quicksand', sans-serif;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .link-button {
-    background-color: rgb(0, 168, 64); 
+  background-color: rgb(0, 168, 64);
 }
 
 .submit-button {
-    background-color: rgb(168, 0, 0);
+  background-color: rgb(168, 0, 0);
 
-    &[disabled] {
-        background-color: #be8585
-    }
+  &[disabled] {
+    background-color: #be8585;
+  }
 }
 
 .add-button {
-    padding: 2px 0;
-    width: 100%;
-    color: black;
+  padding: 2px 0;
+  width: 100%;
+  color: black;
 }
 
 .delete-button {
-    padding: 0;
-    color: black;
+  padding: 0;
+  color: black;
 }
 
 .panel-button {
-    color: black;
-    background-color: white;
-    width: 95%;
-    border: 0;
-    box-shadow: 0 0 3px #ddd;
-    margin: 3px 0;
+  color: black;
+  background-color: white;
+  width: 95%;
+  border: 0;
+  box-shadow: 0 0 3px #ddd;
+  margin: 3px 0;
 
-    &:hover {
-        background-color: #eee;
-
-    }
+  &:hover {
+    background-color: #eee;
+  }
 }
