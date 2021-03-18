@@ -60,6 +60,16 @@
     "@types/jwt-decode": "^3.1.0",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "husky": "=4",
+    "lint-staged": "^10.5.4",
     "prettier": "2.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,scss,css,md,html}": "prettier --write"
   }
 }
