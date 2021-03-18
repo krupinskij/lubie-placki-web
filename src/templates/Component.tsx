@@ -1,7 +1,4 @@
 import * as React from 'react';
-import './Component.scss'
+import './Component.scss';
 
-export const Component: React.FC = ({ children }) => 
-    <div className="component">
-        {children}
-    </div>;
+export const Component: React.FC = ({ children }) => <div className="component">{children}</div>;

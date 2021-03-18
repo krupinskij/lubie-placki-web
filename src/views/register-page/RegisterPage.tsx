@@ -4,11 +4,11 @@ import { Component } from '../../templates/Component';
 import { RegistrationFormWithRouter } from '../../components/forms/RegistrationForm';
 
 export function RegisterPage() {
-    return(
-        <View>
-            <Component>
-                <RegistrationFormWithRouter/>
-            </Component>
-        </View>
-    )
+  return (
+    <View>
+      <Component>
+        <RegistrationFormWithRouter />
+      </Component>
+    </View>
+  );
 }
