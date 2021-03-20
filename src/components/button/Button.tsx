@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -25,9 +26,9 @@ interface SubmitButtonProps {
 
 export function SubmitButton({ text, disabled }: SubmitButtonProps) {
   return (
-    <button className="button submit-button" type="submit" disabled={disabled}>
+    <Button variant="contained" size="large" color="primary" type="submit" disabled={disabled}>
       {text}
-    </button>
+    </Button>
   );
 }
 

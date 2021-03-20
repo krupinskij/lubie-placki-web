@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
 import * as Yup from 'yup';
 import { SubmitButton } from '../../components/button/Button';
-import { TripleSetField, SetField, TextField } from '../../components/form/Field';
+import { TripleSetField, SetField, FormTextField } from '../../components/form/Field';
 import { FormActions, FormContainer, FormFields } from '../../components/form/Form';
 import { CREATE_RECIPE_MUTATION } from '../../graphql/create-recipe.mutation';
 import { Component } from '../../templates/Component';
@@ -47,7 +47,7 @@ export function CreateRecipePage() {
 
   return (
     <View>
-      <Component>
+      {/* <Component>
         <Mutation mutation={CREATE_RECIPE_MUTATION}>
           {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
             <Formik
@@ -68,8 +68,8 @@ export function CreateRecipePage() {
               {({ isValid }) => (
                 <FormContainer title="Dodaj nowy przepis">
                   <FormFields>
-                    <TextField name="name" placeholder="Podaj nazwę" label="Podaj nazwę:" required={true} />
-                    <TextField name="description" placeholder="Podaj opis" label="Podaj opis:" required={true} />
+                    <FormTextField name="name" placeholder="Podaj nazwę" label="Podaj nazwę:" required={true} />
+                    <FormTextField name="description" placeholder="Podaj opis" label="Podaj opis:" required={true} />
                     <TripleSetField
                       name="ingredients"
                       label="Podaj składniki:"
@@ -87,7 +87,7 @@ export function CreateRecipePage() {
             </Formik>
           )}
         </Mutation>
-      </Component>
+      </Component> */}
     </View>
   );
 }

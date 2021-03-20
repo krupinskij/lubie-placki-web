@@ -3,6 +3,7 @@ import { NavbarTopLinks, NavbarBottomLinks } from './NavbarLinks';
 import { NavbarLink } from './NavbarLink';
 
 import { AppBar, makeStyles } from '@material-ui/core';
+import { UserPanel } from '../user-panel/UserPanel';
 
 const useStyles = makeStyles({
   navbarStyles: {
@@ -11,11 +12,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Navbar() {
+export function Navbar() {
   const { navbarStyles } = useStyles();
 
   return (
     <AppBar className={navbarStyles} position="fixed">
+      {/* <UserPanel/> */}
+
       <NavbarHeader title="Lubię Placki" />
 
       <NavbarTopLinks>

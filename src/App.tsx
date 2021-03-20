@@ -7,8 +7,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import Navbar from './components/navbar/Navbar';
-import { UserPanel } from './components/user-panel/UserPanel';
+import { Navbar } from './components/navbar/Navbar';
 import { Page } from './templates/Page';
 import { LoginPage } from './views/login-page/LoginPage';
 import { RegisterPage } from './views/register-page/RegisterPage';
@@ -51,7 +50,6 @@ function App() {
       <BrowserRouter>
         <Page>
           <Navbar />
-          <UserPanel />
           <Route exact path="/" component={HomePage} />
           <RandomRoute path="/random" />
           <Route path="/recipe/:id" component={RecipePage} />

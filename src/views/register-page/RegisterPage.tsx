@@ -6,9 +6,7 @@ import { RegistrationFormWithRouter } from '../../components/forms/RegistrationF
 export function RegisterPage() {
   return (
     <View>
-      <Component>
-        <RegistrationFormWithRouter />
-      </Component>
+      <RegistrationFormWithRouter />
     </View>
   );
 }

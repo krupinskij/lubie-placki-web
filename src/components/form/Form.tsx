@@ -1,19 +1,38 @@
 import React from 'react';
 import { Form } from 'formik';
 
-import './Form.scss';
+import { Button, CardContent, makeStyles, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
+const useStyles = makeStyles({
+  formActionsStyles: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    margin: 10,
+  },
+});
 
 interface FormProps {
-  title?: string;
   children: any;
 }
 
-export function FormContainer({ title, children }: FormProps) {
+export function FormContainer({ children }: FormProps) {
   return (
-    <Form className="form">
-      {title && <div className="form-header">{title}</div>}
-      {children}
-    </Form>
+    <CardContent>
+      <Form noValidate={true}>{children}</Form>
+    </CardContent>
+  );
+}
+
+interface FormHeaderProps {
+  title: string;
+}
+
+export function FormHeader({ title }: FormHeaderProps) {
+  return (
+    <Typography align="center" gutterBottom variant="h3" component="h2">
+      {title}
+    </Typography>
   );
 }
 
@@ -26,5 +45,25 @@ export function FormFields({ children }: FormPartProps) {
 }
 
 export function FormActions({ children }: FormPartProps) {
-  return <div className="form-actions">{children}</div>;
+  const { formActionsStyles } = useStyles();
+  return <div className={formActionsStyles}>{children}</div>;
+}
+
+interface FormLinkProps {
+  prefix?: string;
+  suffix?: string;
+  text: string;
+  to: string;
+}
+
+export function FormLink({ prefix, suffix, text, to }: FormLinkProps) {
+  return (
+    <Typography align="center">
+      {prefix && <span>{prefix} </span>}
+      <Link color="primary" to={to}>
+        {text}
+      </Link>
+      {suffix && <span> {suffix}</span>}
+    </Typography>
+  );
 }

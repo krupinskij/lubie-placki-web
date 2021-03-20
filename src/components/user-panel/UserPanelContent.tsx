@@ -20,7 +20,7 @@ export function UserPanelHeader() {
 export function UnknownUserPanelBody() {
   return (
     <div className="user-panel-body">
-      <LoginFormWithRouter mini={true} />
+      <LoginFormWithRouter />
     </div>
   );
 }
