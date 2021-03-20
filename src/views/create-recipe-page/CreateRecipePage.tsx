@@ -3,7 +3,8 @@ import { Mutation, MutationFunction, MutationResult, OperationVariables } from '
 import * as Yup from 'yup';
 import { SubmitButton } from '../../components/button/Button';
 import { TripleSetField, SetField, FormTextField } from '../../components/form/Field';
-import { FormActions, FormContainer, FormFields } from '../../components/form/Form';
+import { FormActions, FormContainer, FormFields, FormHeader } from '../../components/form/Form';
+import { NewRecipeFormWithRouter } from '../../components/forms/NewRecipeForm';
 import { CREATE_RECIPE_MUTATION } from '../../graphql/create-recipe.mutation';
 import { Component } from '../../templates/Component';
 import { View } from '../../templates/View';
@@ -35,59 +36,9 @@ const createRecipeValidationSchema = Yup.object().shape({
 });
 
 export function CreateRecipePage() {
-  const createRecipe = (trigger: MutationFunction<any, OperationVariables>, recipeInput: any) => {
-    return trigger({
-      variables: {
-        credentials: recipeInput,
-      },
-    })
-      .then((resp) => console.log(resp))
-      .catch((err) => console.log(err));
-  };
-
   return (
     <View>
-      {/* <Component>
-        <Mutation mutation={CREATE_RECIPE_MUTATION}>
-          {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
-            <Formik
-              validationSchema={createRecipeValidationSchema}
-              validateOnBlur={true}
-              validateOnChange={true}
-              onSubmit={(createRecipeInput) => {
-                createRecipe(trigger, createRecipeInput);
-              }}
-              initialValues={{
-                name: '',
-                description: '',
-                ingredients: [],
-                directions: [],
-                hints: [],
-              }}
-            >
-              {({ isValid }) => (
-                <FormContainer title="Dodaj nowy przepis">
-                  <FormFields>
-                    <FormTextField name="name" placeholder="Podaj nazwę" label="Podaj nazwę:" required={true} />
-                    <FormTextField name="description" placeholder="Podaj opis" label="Podaj opis:" required={true} />
-                    <TripleSetField
-                      name="ingredients"
-                      label="Podaj składniki:"
-                      placeholder={['Produkt', 'Ilość', 'Jednostka']}
-                      required={true}
-                    />
-                    <SetField name="directions" label="Podaj kroki:" placeholder="Podaj krok" required={true} />
-                    <SetField name="hints" label="Podaj wskazówki:" placeholder="Podaj wskazówkę" />
-                  </FormFields>
-                  <FormActions>
-                    <SubmitButton disabled={!isValid} text="Dodaj przepis" />
-                  </FormActions>
-                </FormContainer>
-              )}
-            </Formik>
-          )}
-        </Mutation>
-      </Component> */}
+      <NewRecipeFormWithRouter />
     </View>
   );
 }

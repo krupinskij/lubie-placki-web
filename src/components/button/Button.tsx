@@ -1,23 +1,5 @@
-import { Button } from '@material-ui/core';
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-import './Button.scss';
-
-interface LinkButtonProps {
-  text: string;
-  to: string;
-}
-
-export function LinkButton({ text, to }: LinkButtonProps) {
-  return (
-    <Link to={to}>
-      <button className="button link-button" type="button">
-        {text}
-      </button>
-    </Link>
-  );
-}
+import { Button, IconButton, makeStyles, useTheme } from '@material-ui/core';
+import { AddCircleRounded, RemoveCircleRounded } from '@material-ui/icons';
 
 interface SubmitButtonProps {
   text: string;
@@ -32,41 +14,42 @@ export function SubmitButton({ text, disabled }: SubmitButtonProps) {
   );
 }
 
-interface AddButtonProps {
-  text?: string;
+interface ActionButtonProps {
   onClick: () => void;
 }
 
-export function AddButton({ text, onClick }: AddButtonProps) {
+interface ActionButtonStylesProps {
+  backgroundColor: string;
+}
+
+const useStyles = makeStyles({
+  actionButtonStyles: {
+    color: (props: ActionButtonStylesProps) => props.backgroundColor,
+  },
+});
+
+export function AddButton({ onClick }: ActionButtonProps) {
+  const { palette } = useTheme();
+  const { actionButtonStyles } = useStyles({
+    backgroundColor: palette.success.main,
+  });
+
   return (
-    <button className="button add-button" type="button" onClick={onClick}>
-      {text || '+'}
-    </button>
+    <IconButton className={actionButtonStyles} onClick={onClick}>
+      <AddCircleRounded />
+    </IconButton>
   );
 }
 
-interface DeleteButtonProps {
-  text?: string;
-  onClick: () => void;
-}
+export function DeleteButton({ onClick }: ActionButtonProps) {
+  const { palette } = useTheme();
+  const { actionButtonStyles } = useStyles({
+    backgroundColor: palette.error.main,
+  });
 
-export function DeleteButton({ text, onClick }: DeleteButtonProps) {
   return (
-    <button className="button delete-button" type="button" onClick={onClick}>
-      {text || '-'}
-    </button>
-  );
-}
-
-interface PanelButtonProps {
-  text: string;
-  onClick: () => void;
-}
-
-export function PanelButton({ text, onClick }: PanelButtonProps) {
-  return (
-    <button className="button panel-button" type="button" onClick={onClick}>
-      {text}
-    </button>
+    <IconButton className={actionButtonStyles} onClick={onClick}>
+      <RemoveCircleRounded />
+    </IconButton>
   );
 }
