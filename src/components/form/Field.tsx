@@ -2,12 +2,26 @@ import React from 'react';
 import { Field, FieldArray, FieldAttributes } from 'formik';
 
 import { AddButton, DeleteButton } from '../button/Button';
-import { makeStyles, TextField } from '@material-ui/core';
+import { makeStyles, TextField, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   fieldStyles: {
     marginTop: 10,
     marginBottom: 10,
+  },
+  requiredFieldTitleStyle: {
+    '&::after': {
+      content: '"*"',
+      color: 'red',
+    },
+  },
+  setFieldRowStyles: {
+    display: 'grid',
+    gridTemplateColumns: '9fr 1fr',
+  },
+  tripleSetFieldRowStyles: {
+    display: 'grid',
+    gridTemplateColumns: '5fr 2fr 2fr 1fr',
   },
 });
 
@@ -97,74 +111,122 @@ export function FormPasswordField({ label, name, required }: FieldProps) {
 interface SetFieldProps {
   label: string;
   name: string;
-  placeholder: string;
+  title: string;
   required?: boolean;
 }
 
-export function SetField({ label, name, placeholder, required }: SetFieldProps) {
+export function SetField({ label, name, title, required }: SetFieldProps) {
+  const { fieldStyles, requiredFieldTitleStyle, setFieldRowStyles } = useStyles();
   return (
-    <div className="field">
-      {label && (
-        <label className={`field-label ${required ? 'required' : ''}`} htmlFor={name}>
-          {label}
-        </label>
-      )}
-      <FieldArray
-        name={name}
-        render={(arrayHelpers) => (
-          <div className="field-group-container">
-            {arrayHelpers.form.values[name].map((_: any, index: number) => (
-              <div key={index} className="field-group">
-                <Field className="field-input" placeholder={placeholder} name={`${name}[${index}].text`} />
-
-                <DeleteButton onClick={() => arrayHelpers.remove(index)} />
-              </div>
-            ))}
+    <FieldArray
+      name={name}
+      render={(arrayHelpers) => (
+        <div className={fieldStyles}>
+          <Typography variant="h6" component="h3">
+            <span className={required ? requiredFieldTitleStyle : ''}>{title}</span>
             <AddButton onClick={() => arrayHelpers.push({ text: '' })} />
-          </div>
-        )}
-      />
-    </div>
+          </Typography>
+          {arrayHelpers.form.values[name].map((_: any, index: number) => (
+            <div key={index} className={setFieldRowStyles}>
+              <Field name={`${name}[${index}].text`}>
+                {({ field, meta }: FieldAttributes<any>) => (
+                  <TextField
+                    type="text"
+                    label={label}
+                    name={`${name}[${index}].text`}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    error={meta.touched && Boolean(meta.error)}
+                    helperText={meta.touched && meta.error}
+                    variant="outlined"
+                    fullWidth
+                  />
+                )}
+              </Field>
+              <DeleteButton onClick={() => arrayHelpers.remove(index)} />
+            </div>
+          ))}
+        </div>
+      )}
+    />
   );
 }
 
 interface TripleSetFieldProps {
-  label: string;
+  label: [string, string, string];
   name: string;
-  placeholder: [string, string, string];
+  title: string;
   required?: boolean;
 }
 
-export function TripleSetField({ label, name, placeholder, required }: TripleSetFieldProps) {
-  return (
-    <div className="field">
-      {label && (
-        <label className={`field-label ${required ? 'required' : ''}`} htmlFor={name}>
-          {label}
-        </label>
-      )}
-      <FieldArray
-        name={name}
-        render={(arrayHelpers) => (
-          <div className="field-group-container">
-            {arrayHelpers.form.values[name].map((_: any, index: number) => (
-              <div key={index} className="field-group field-group-3">
-                <Field className="field-input" placeholder={placeholder[0]} name={`${name}[${index}].product`} />
-                <Field
-                  className="field-input"
-                  placeholder={placeholder[1]}
-                  type="number"
-                  name={`${name}[${index}].quantity`}
-                />
-                <Field className="field-input" placeholder={placeholder[2]} name={`${name}[${index}].unit`} />
+export function TripleSetField({ label, name, title, required }: TripleSetFieldProps) {
+  const { fieldStyles, requiredFieldTitleStyle, tripleSetFieldRowStyles } = useStyles();
 
-                <DeleteButton onClick={() => arrayHelpers.remove(index)} />
-              </div>
-            ))}
+  return (
+    <FieldArray
+      name={name}
+      render={(arrayHelpers) => (
+        <div className={fieldStyles}>
+          <Typography variant="h6" component="h3">
+            <span className={required ? requiredFieldTitleStyle : ''}>{title}</span>
             <AddButton onClick={() => arrayHelpers.push({ product: '', quantity: '', unit: '' })} />
-          </div>
-        )}
-      />
-    </div>
+          </Typography>
+          {arrayHelpers.form.values[name].map((_: any, index: number) => (
+            <div key={index} className={tripleSetFieldRowStyles}>
+              <Field name={`${name}[${index}].product`}>
+                {({ field, meta }: FieldAttributes<any>) => (
+                  <TextField
+                    type="text"
+                    label={label[0]}
+                    name={`${name}[${index}].product`}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    error={meta.touched && Boolean(meta.error)}
+                    helperText={meta.touched && meta.error}
+                    variant="outlined"
+                    fullWidth
+                  />
+                )}
+              </Field>
+              <Field name={`${name}[${index}].quantity`}>
+                {({ field, meta }: FieldAttributes<any>) => (
+                  <TextField
+                    type="number"
+                    label={label[1]}
+                    name={`${name}[${index}].quantity`}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    error={meta.touched && Boolean(meta.error)}
+                    helperText={meta.touched && meta.error}
+                    variant="outlined"
+                    fullWidth
+                  />
+                )}
+              </Field>
+              <Field name={`${name}[${index}].unit`}>
+                {({ field, meta }: FieldAttributes<any>) => (
+                  <TextField
+                    type="text"
+                    label={label[2]}
+                    name={`${name}[${index}].unit`}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    error={meta.touched && Boolean(meta.error)}
+                    helperText={meta.touched && meta.error}
+                    variant="outlined"
+                    fullWidth
+                  />
+                )}
+              </Field>
+              <DeleteButton onClick={() => arrayHelpers.remove(index)} />
+            </div>
+          ))}
+        </div>
+      )}
+    />
   );
 }
