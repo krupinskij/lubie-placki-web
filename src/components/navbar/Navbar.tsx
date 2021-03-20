@@ -17,7 +17,7 @@ export function Navbar() {
 
   return (
     <AppBar className={navbarStyles} position="fixed">
-      {/* <UserPanel/> */}
+      <UserPanel />
 
       <NavbarHeader title="Lubię Placki" />
 
