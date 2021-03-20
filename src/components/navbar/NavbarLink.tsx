@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { UserSession } from '../../utils/user-session';
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   navbarItem: {
@@ -36,10 +36,10 @@ export function NavbarLink({ to, title, privateLink }: NavbarLinkProps) {
   });
 
   return (
-    <div className={navbarItem}>
+    <Typography className={navbarItem}>
       <Link className={navbarLink} to={to}>
         {title}
       </Link>
-    </div>
+    </Typography>
   );
 }

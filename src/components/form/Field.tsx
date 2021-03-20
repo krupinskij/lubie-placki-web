@@ -1,58 +1,96 @@
 import React from 'react';
-import { Field, FieldArray } from 'formik';
+import { Field, FieldArray, FieldAttributes } from 'formik';
 
-import './Field.scss';
 import { AddButton, DeleteButton } from '../button/Button';
+import { makeStyles, TextField } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  fieldStyles: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});
 
 interface FieldProps {
   label: string;
   name?: string;
-  placeholder?: string;
   required?: boolean;
 }
 
 interface TextFieldProps extends FieldProps {
-  type?: string;
   name: string;
-  placeholder: string;
+  type?: string;
 }
 
-export function TextField({ label, type, name, placeholder, required }: TextFieldProps) {
+export function FormTextField({ label, name, type, required }: TextFieldProps) {
+  const { fieldStyles } = useStyles();
   return (
-    <div className="field">
-      {label && (
-        <label className={`field-label ${required ? 'required' : ''}`} htmlFor={name}>
-          {label}
-        </label>
+    <Field name={name}>
+      {({ field, meta }: FieldAttributes<any>) => (
+        <TextField
+          className={fieldStyles}
+          type={type || 'text'}
+          label={label}
+          name={name}
+          value={field.value}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          error={meta.touched && Boolean(meta.error)}
+          required={required}
+          helperText={meta.touched && meta.error}
+          variant="outlined"
+          fullWidth
+        />
       )}
-      <Field className="field-input" id={name} type={type || 'text'} name={name} placeholder={placeholder} />
-    </div>
+    </Field>
   );
 }
 
-export function EmailField({ label, name, placeholder, required }: FieldProps) {
+export function FormEmailField({ label, name, required }: FieldProps) {
+  const { fieldStyles } = useStyles();
   return (
-    <div className="field">
-      {label && (
-        <label className={`field-label ${required ? 'required' : ''}`} htmlFor={name || 'email'}>
-          {label}
-        </label>
+    <Field name={name || 'email'}>
+      {({ field, meta }: FieldAttributes<any>) => (
+        <TextField
+          className={fieldStyles}
+          type="email"
+          label={label || 'Email'}
+          name={name || 'email'}
+          value={field.value}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          error={meta.touched && Boolean(meta.error)}
+          required={required}
+          helperText={meta.touched && meta.error}
+          variant="outlined"
+          fullWidth
+        />
       )}
-      <Field className="field-input" type="email" name={name || 'email'} placeholder={placeholder || 'Email'} />
-    </div>
+    </Field>
   );
 }
 
-export function PasswordField({ label, name, placeholder, required }: FieldProps) {
+export function FormPasswordField({ label, name, required }: FieldProps) {
+  const { fieldStyles } = useStyles();
   return (
-    <div className="field">
-      {label && (
-        <label className={`field-label ${required ? 'required' : ''}`} htmlFor={name || 'password'}>
-          {label}
-        </label>
+    <Field name={name || 'password'}>
+      {({ field, meta }: FieldAttributes<any>) => (
+        <TextField
+          className={fieldStyles}
+          type="password"
+          label={label || 'Hasło'}
+          name={name || 'password'}
+          value={field.value}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          error={meta.touched && Boolean(meta.error)}
+          required={required}
+          helperText={meta.touched && meta.error}
+          variant="outlined"
+          fullWidth
+        />
       )}
-      <Field className="field-input" type="password" name={name || 'password'} placeholder={placeholder || 'Hasło'} />
-    </div>
+    </Field>
   );
 }
 

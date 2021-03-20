@@ -25,7 +25,7 @@ import { Recipes } from '../../typings/types';
 import { getFullDate } from '../../utils/date-time';
 
 const useStyles = makeStyles({
-  recipe: {
+  card: {
     maxWidth: 700,
     margin: 20,
   },
@@ -48,11 +48,11 @@ const useStyles = makeStyles({
 });
 
 export function Recipe({ _id, name, description, ingredients, directions, hints, createdAt, owner }: Recipes.Recipe) {
-  const { recipe, link, cardActions, cardContent, expandMoreIcon } = useStyles();
+  const { card, link, cardActions, cardContent, expandMoreIcon } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <Card className={recipe} elevation={12}>
+    <Card className={card} elevation={12}>
       <CardHeader
         action={
           <IconButton aria-label="settings">

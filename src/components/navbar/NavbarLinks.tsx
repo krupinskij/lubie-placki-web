@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,10 +28,10 @@ interface NavbarLinksProps {
 
 export function NavbarTopLinks({ children }: NavbarLinksProps) {
   const { navbarLink, navbarTopLinks } = useStyles();
-  return <Typography className={`${navbarLink} ${navbarTopLinks}`}>{children}</Typography>;
+  return <div className={`${navbarLink} ${navbarTopLinks}`}>{children}</div>;
 }
 
 export function NavbarBottomLinks({ children }: NavbarLinksProps) {
   const { navbarLink, navbarBottomLinks } = useStyles();
-  return <Typography className={`${navbarLink} ${navbarBottomLinks}`}>{children}</Typography>;
+  return <div className={`${navbarLink} ${navbarBottomLinks}`}>{children}</div>;
 }
