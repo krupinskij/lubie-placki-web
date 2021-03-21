@@ -1,5 +1,7 @@
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 import cake from '../../assets/cake.svg';
-import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   headerStyles: {
@@ -9,14 +11,14 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   logoStyles: {
-    height: '60px',
-    width: '60px',
-    marginRight: '10px',
+    height: 60,
+    width: 60,
+    marginRight: 10,
   },
   titleStyles: {
     textAlign: 'center',
     fontSize: '250%',
-    margin: '10px',
+    margin: 10,
   },
 });
 
@@ -24,7 +26,7 @@ interface NavbarHeaderProps {
   title: string;
 }
 
-export default function NavbarHeader({ title }: NavbarHeaderProps) {
+export function NavbarHeader({ title }: NavbarHeaderProps) {
   const { headerStyles, logoStyles, titleStyles } = useStyles();
 
   return (

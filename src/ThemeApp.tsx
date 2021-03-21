@@ -1,5 +1,5 @@
-import App from './App';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import ApolloApp from './ApolloApp';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
@@ -19,7 +19,7 @@ const theme = createMuiTheme({
 function ThemeApp() {
   return (
     <ThemeProvider theme={theme}>
-      <App />
+      <ApolloApp />
     </ThemeProvider>
   );
 }

@@ -1,5 +1,6 @@
-import { Query, QueryResult } from 'react-apollo';
+import { Query } from 'react-apollo';
 import { Redirect, Route } from 'react-router';
+
 import { RANDOM_RECIPE_QUERY } from '../../graphql/random-recipe.query';
 
 export function RandomRoute({ ...rest }: any) {

@@ -1,5 +1,9 @@
-import { Avatar, Button, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+
 import { UserSession } from '../../utils/user-session';
 
 const useStyles = makeStyles({

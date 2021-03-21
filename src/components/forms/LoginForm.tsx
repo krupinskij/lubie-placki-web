@@ -1,17 +1,21 @@
 import { Formik } from 'formik';
-import React from 'react';
 import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
-import * as Yup from 'yup';
-import { FormEmailField, FormPasswordField } from '../../components/form/Field';
-import { FormActions, FormContainer, FormFields, FormHeader, FormLink } from '../../components/form/Form';
-import { SubmitButton } from '../../components/button/Button';
+import { RouteComponentProps, withRouter } from 'react-router';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+
+import { SubmitButton } from '../button/SubmitButton';
+import { FormActions, FormContainer, FormFields, FormHeader, FormLink } from '../form/Form';
+import { FormEmailField, FormPasswordField } from '../form/Field';
+
 import { LOGIN_MUTATION } from '../../graphql/login.mutation';
 import { UserSession } from '../../utils/user-session';
-import { RouteComponentProps, withRouter } from 'react-router';
-import { Card, makeStyles } from '@material-ui/core';
+
+import * as Yup from 'yup';
 
 const useStyles = makeStyles({
-  card: {
+  cardStyles: {
     width: 700,
     margin: 20,
     padding: 30,
@@ -24,7 +28,7 @@ const loginValidationSchema = Yup.object().shape({
 });
 
 function LoginForm({ history }: RouteComponentProps<void>) {
-  const { card } = useStyles();
+  const { cardStyles } = useStyles();
 
   const login = (trigger: MutationFunction<any, OperationVariables>, loginInput: any) => {
     return trigger({
@@ -41,7 +45,7 @@ function LoginForm({ history }: RouteComponentProps<void>) {
   };
 
   return (
-    <Card className={card} elevation={12}>
+    <Card className={cardStyles} elevation={12}>
       <Mutation mutation={LOGIN_MUTATION}>
         {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
           <Formik

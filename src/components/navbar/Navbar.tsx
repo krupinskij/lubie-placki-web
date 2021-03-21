@@ -1,8 +1,10 @@
-import NavbarHeader from './NavbarHeader';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+
+import { NavbarHeader } from './NavbarHeader';
 import { NavbarTopLinks, NavbarBottomLinks } from './NavbarLinks';
 import { NavbarLink } from './NavbarLink';
 
-import { AppBar, makeStyles } from '@material-ui/core';
 import { UserPanel } from '../user-panel/UserPanel';
 
 const useStyles = makeStyles({

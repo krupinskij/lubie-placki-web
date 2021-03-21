@@ -1,13 +1,14 @@
-import React from 'react';
-import { View } from '../../templates/View';
 import { Query, QueryResult } from 'react-apollo';
-import { RECIPES_QUERY } from '../../graphql/recipes.query';
-import { Recipes } from '../../typings/types';
-import { RecipeList } from '../../components/recipe/RecipeList';
+
+import { Page } from '../components/shared/Page';
+import { RecipeList } from '../components/recipe/RecipeList';
+
+import { RECIPES_QUERY } from '../graphql/recipes.query';
+import { Recipes } from '../typings/types';
 
 export function HomePage() {
   return (
-    <View>
+    <Page>
       <Query query={RECIPES_QUERY}>
         {({ data, loading }: QueryResult<Recipes.Recipes>) => {
           if (data) {
@@ -19,6 +20,6 @@ export function HomePage() {
           return <div>Wystąpił błąd</div>;
         }}
       </Query>
-    </View>
+    </Page>
   );
 }

@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import { Recipes } from '../../typings/types';
 
@@ -13,7 +13,9 @@ export function RecipeHints({ hints }: RecipeHintsProps) {
 
   return (
     <>
-      <Typography paragraph>Wskazówki:</Typography>
+      <Typography variant="h6" component="h3">
+        Wskazówki:
+      </Typography>
       <Typography paragraph>{h}</Typography>
     </>
   );
