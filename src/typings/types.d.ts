@@ -1,15 +1,15 @@
 export namespace Recipes {
-  type Ingredient = {
+  export type Ingredient = {
     product: string;
     quantity: number;
     unit: string;
   };
 
-  type Direction = {
+  export type Direction = {
     text: string;
   };
 
-  type Hint = {
+  export type Hint = {
     text: string;
   };
 

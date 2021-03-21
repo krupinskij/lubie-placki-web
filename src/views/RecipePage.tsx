@@ -1,10 +1,11 @@
-import React from 'react';
-import { View } from '../../templates/View';
 import { Query, QueryResult } from 'react-apollo';
-import { RECIPE_QUERY } from '../../graphql/recipe.query';
-import { Recipes } from '../../typings/types';
-import { Recipe } from '../../components/recipe/Recipe';
 import { RouteComponentProps } from 'react-router';
+
+import { Page } from '../components/shared/Page';
+import { Recipe } from '../components/recipe/Recipe';
+
+import { RECIPE_QUERY } from '../graphql/recipe.query';
+import { Recipes } from '../typings/types';
 
 interface RecipeMatchParams {
   id: string;
@@ -14,7 +15,7 @@ type RecipeProps = RouteComponentProps<RecipeMatchParams>;
 
 export function RecipePage(props: RecipeProps) {
   return (
-    <View>
+    <Page>
       <Query
         query={RECIPE_QUERY}
         variables={{
@@ -32,6 +33,6 @@ export function RecipePage(props: RecipeProps) {
           return <div>Wystąpił błąd</div>;
         }}
       </Query>
-    </View>
+    </Page>
   );
 }
