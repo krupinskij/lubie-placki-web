@@ -1,15 +1,21 @@
 import { Formik } from 'formik';
 import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
-import * as Yup from 'yup';
-import { FormTextField, SetField, TripleSetField } from '../../components/form/Field';
-import { FormActions, FormContainer, FormFields, FormHeader } from '../../components/form/Form';
-import { SubmitButton } from '../../components/button/Button';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Card, Divider, makeStyles } from '@material-ui/core';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import Divider from '@material-ui/core/Divider';
+
+import { SubmitButton } from '../button/SubmitButton';
+import { FormTextField, SetField, TripleSetField } from '../form/Field';
+import { FormActions, FormContainer, FormFields, FormHeader } from '../form/Form';
+
 import { CREATE_RECIPE_MUTATION } from '../../graphql/create-recipe.mutation';
 
+import * as Yup from 'yup';
+
 const useStyles = makeStyles({
-  card: {
+  cardStyles: {
     width: 700,
     margin: 20,
     padding: 30,
@@ -42,7 +48,7 @@ const createRecipeValidationSchema = Yup.object().shape({
 });
 
 function NewRecipeForm({ history }: RouteComponentProps<void>) {
-  const { card } = useStyles();
+  const { cardStyles } = useStyles();
 
   const createRecipe = (trigger: MutationFunction<any, OperationVariables>, recipeInput: any) => {
     return trigger({
@@ -55,7 +61,7 @@ function NewRecipeForm({ history }: RouteComponentProps<void>) {
   };
 
   return (
-    <Card className={card} elevation={12}>
+    <Card className={cardStyles} elevation={12}>
       <Mutation mutation={CREATE_RECIPE_MUTATION}>
         {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
           <Formik

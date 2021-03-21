@@ -1,15 +1,21 @@
 import { Link } from 'react-router-dom';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 import { UserSession } from '../../utils/user-session';
 
-import { makeStyles, Typography } from '@material-ui/core';
+interface StylesProps {
+  private: boolean | undefined;
+}
 
 const useStyles = makeStyles({
-  navbarItem: {
-    margin: '10px',
+  navbarItemStyles: {
+    margin: 10,
   },
-  navbarLink: {
+  navbarLinkStyles: {
     textDecoration: 'none',
-    margin: '10px',
+    margin: 10,
     padding: '10px 0',
     color: (props: StylesProps) => (props.private ? 'gray' : 'inherit'),
     pointerEvents: (props: StylesProps) => (props.private ? 'none' : 'inherit'),
@@ -26,18 +32,14 @@ interface NavbarLinkProps {
   privateLink?: boolean;
 }
 
-interface StylesProps {
-  private: boolean | undefined;
-}
-
 export function NavbarLink({ to, title, privateLink }: NavbarLinkProps) {
-  const { navbarItem, navbarLink } = useStyles({
+  const { navbarItemStyles, navbarLinkStyles } = useStyles({
     private: privateLink && !UserSession.isActive,
   });
 
   return (
-    <Typography className={navbarItem}>
-      <Link className={navbarLink} to={to}>
+    <Typography className={navbarItemStyles}>
+      <Link className={navbarLinkStyles} to={to}>
         {title}
       </Link>
     </Typography>
