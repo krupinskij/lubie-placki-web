@@ -1,5 +1,6 @@
 import { Query, QueryResult } from 'react-apollo';
 
+import { Error } from '../components/shared/Error';
 import { Page } from '../components/shared/Page';
 import { RecipeList } from '../components/recipe/RecipeList';
 
@@ -17,7 +18,7 @@ export function HomePage() {
           // // if (loading) {
           //   <div>Loading...</div>;
           // }
-          return <div>Wystąpił błąd</div>;
+          return <Error />;
         }}
       </Query>
     </Page>
