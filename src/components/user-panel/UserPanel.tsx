@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
 import { UserSession } from '../../utils/user-session';
@@ -40,5 +39,16 @@ function UnloggedUserPanel() {
 }
 
 function LoggedUserPanel() {
-  return <Avatar aria-label="recipe">A</Avatar>;
+  const { loggedUserPanelStyles } = useStyles();
+
+  return (
+    <div className={loggedUserPanelStyles}>
+      <Button variant="outlined" component={Link} to="/profile">
+        Moje konto
+      </Button>
+      <Button variant="outlined" onClick={UserSession.removeToken}>
+        Wyloguj się
+      </Button>
+    </div>
+  );
 }
