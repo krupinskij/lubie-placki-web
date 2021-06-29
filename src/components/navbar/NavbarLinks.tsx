@@ -1,32 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import './NavbarLinks.scss'
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+interface StylesProps {
+  backgroundColor: string;
+  color: string;
+}
+
+const useStyles = makeStyles({
+  navbarLinkStyles: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: (props: StylesProps) => props.backgroundColor,
+    color: (props: StylesProps) => props.color,
+  },
+});
 
 interface NavbarLinksProps {
-  position: "top" | "bottom",
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export function NavbarLinks({ position, children }: NavbarLinksProps) {
-  return (
-			<div className={`navbar-links navbar-links--${position}`}>
-        {children}
-      </div>
-	)
+export function NavbarTopLinks({ children }: NavbarLinksProps) {
+  const { palette } = useTheme();
+  const { navbarLinkStyles } = useStyles({
+    backgroundColor: palette.primary.main,
+    color: 'white',
+  });
+  return <div className={navbarLinkStyles}>{children}</div>;
 }
 
-interface NavbarLinkProps {
-  to: string,
-  title: string
-}
-
-export function NavbarLink({ to, title }: NavbarLinkProps) {
-  return (
-    <div className="navbar-item">
-      <Link className="navbar-link" to={to}>
-        {title}
-      </Link>
-    </div>
-	)
+export function NavbarBottomLinks({ children }: NavbarLinksProps) {
+  const { navbarLinkStyles } = useStyles({
+    backgroundColor: 'white',
+    color: 'black',
+  });
+  return <div className={navbarLinkStyles}>{children}</div>;
 }
