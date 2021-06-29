@@ -11,12 +11,12 @@ export function HomePage() {
     <Page>
       <Query query={RECIPES_QUERY}>
         {({ data, loading }: QueryResult<Recipes.Recipes>) => {
-          if (data) {
-            return <RecipeList recipes={data.recipes} />;
-          }
-          if (loading) {
-            <div>Loading...</div>;
-          }
+          // if (data) {
+          // //   return <RecipeList recipes={data.recipes} />;
+          // // }
+          // // if (loading) {
+          //   <div>Loading...</div>;
+          // }
           return <div>Wystąpił błąd</div>;
         }}
       </Query>
