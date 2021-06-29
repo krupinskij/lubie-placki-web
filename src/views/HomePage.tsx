@@ -1,6 +1,7 @@
 import { Query, QueryResult } from 'react-apollo';
 
 import { Error } from '../components/shared/Error';
+import { Loading } from '../components/shared/Loading';
 import { Page } from '../components/shared/Page';
 import { RecipeList } from '../components/recipe/RecipeList';
 
@@ -12,12 +13,12 @@ export function HomePage() {
     <Page>
       <Query query={RECIPES_QUERY}>
         {({ data, loading }: QueryResult<Recipes.Recipes>) => {
-          // if (data) {
-          // //   return <RecipeList recipes={data.recipes} />;
-          // // }
-          // // if (loading) {
-          //   <div>Loading...</div>;
-          // }
+          if (data) {
+            return <RecipeList recipes={data.recipes} />;
+          }
+          if (loading) {
+            return <Loading />;
+          }
           return <Error />;
         }}
       </Query>
