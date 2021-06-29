@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { Navbar } from '../navbar/Navbar';
-import { Footer } from '../footer/Footer';
-
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -18,11 +15,5 @@ const useStyles = makeStyles({
 export const Page: React.FC = ({ children }) => {
   const { pageStyles } = useStyles();
 
-  return (
-    <div className={pageStyles}>
-      <Navbar />
-      {children}
-      <Footer />
-    </div>
-  );
+  return <div className={pageStyles}>{children}</div>;
 };

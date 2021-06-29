@@ -1,5 +1,9 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import { Page } from './components/shared/Page';
+import { Navbar } from './components/navbar/Navbar';
+import { Footer } from './components/footer/Footer';
+
 import { RandomRoute } from './components/shared/RandomRoute';
 import { PrivateRoute } from './components/shared/PrivateRoute';
 import { UnloggedRoute } from './components/shared/UnloggedRoute';
@@ -13,12 +17,16 @@ import { RegisterPage } from './views/RegisterPage';
 function App() {
   return (
     <BrowserRouter>
-      <Route exact path="/" component={HomePage} />
-      <RandomRoute path="/random" />
-      <Route path="/recipe/:id" component={RecipePage} />
-      <PrivateRoute path="/create" component={CreateRecipePage} />
-      <UnloggedRoute path="/login" component={LoginPage} />
-      <UnloggedRoute path="/register" component={RegisterPage} />
+      <Page>
+        <Navbar />
+        <Route exact path="/" component={HomePage} />
+        <RandomRoute path="/random" />
+        <Route path="/recipe/:id" component={RecipePage} />
+        <PrivateRoute path="/create" component={CreateRecipePage} />
+        <UnloggedRoute path="/login" component={LoginPage} />
+        <UnloggedRoute path="/register" component={RegisterPage} />
+        <Footer />
+      </Page>
     </BrowserRouter>
   );
 }
