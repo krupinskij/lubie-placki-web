@@ -4,20 +4,20 @@ import { Error } from '../components/shared/Error';
 import { Loading } from '../components/shared/Loading';
 import { RecipeList } from '../components/recipe/RecipeList';
 
-import { RECIPES_QUERY } from '../graphql/recipes.query';
+import { FAVOURITE_RECIPES_QUERY } from '../graphql/favourite-recipes.query';
 import { Recipes } from '../typings/types';
 
 export function FavouritePage() {
   return (
-    <Query query={RECIPES_QUERY}>
-      {({ data, loading }: QueryResult<Recipes.Recipes>) => {
+    <Query query={FAVOURITE_RECIPES_QUERY}>
+      {({ data, error }: QueryResult<Recipes.FavouriteRecipes>) => {
         if (data) {
-          return <RecipeList recipes={data.recipes} />;
+          return <RecipeList recipes={data.favouriteRecipes} />;
         }
-        if (loading) {
-          return <Loading />;
+        if (error) {
+          return <Error />;
         }
-        return <Error />;
+        return <Loading />;
       }}
     </Query>
   );

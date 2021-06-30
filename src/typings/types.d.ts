@@ -34,6 +34,11 @@ export namespace Recipes {
     recipes: Recipe[];
   };
 
+  export type FavouriteRecipes = {
+    __typename?: 'Recipes';
+    favouriteRecipes: Recipe[];
+  };
+
   export type RandomRecipe = {
     __typename?: 'RandomRecipe';
     _id: string;

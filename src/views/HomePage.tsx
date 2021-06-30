@@ -10,14 +10,14 @@ import { Recipes } from '../typings/types';
 export function HomePage() {
   return (
     <Query query={RECIPES_QUERY}>
-      {({ data, loading }: QueryResult<Recipes.Recipes>) => {
+      {({ data, error }: QueryResult<Recipes.Recipes>) => {
         if (data) {
           return <RecipeList recipes={data.recipes} />;
         }
-        if (loading) {
-          return <Loading />;
+        if (error) {
+          return <Error />;
         }
-        return <Error />;
+        return <Loading />;
       }}
     </Query>
   );
