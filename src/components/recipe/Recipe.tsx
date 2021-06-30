@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
+import { useMutation } from 'react-apollo';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -63,17 +63,17 @@ export function Recipe({
   const { cardStyles, linkStyles, cardActionsStyles, cardContentStyles, expandMoreIconStyles } = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [favourite, setFavourite] = useState(isFavourite);
+  const [addToFavourite] = useMutation(ADD_TO_FAVOURITE_MUTATION);
+  const [removeFromFavourite] = useMutation(REMOVE_FROM_FAVOURITE_MUTATION);
 
-  const controlFavourite = (trigger: MutationFunction<any, OperationVariables>, recipeId: string) => {
-    return trigger({
-      variables: {
-        credentials: recipeId,
-      },
-    })
-      .then((resp) => {
-        setFavourite(!favourite);
-      })
-      .catch((err) => console.log(err));
+  const handleAddToFavourite = async () => {
+    await addToFavourite({ variables: { credentials: _id } });
+    setFavourite(true);
+  };
+
+  const handleRemoveFromFavourite = async () => {
+    await removeFromFavourite({ variables: { credentials: _id } });
+    setFavourite(false);
   };
 
   return (
@@ -124,18 +124,15 @@ export function Recipe({
         <Button size="small" color="primary">
           Dodaj komentarz
         </Button>
-        <Mutation mutation={favourite ? REMOVE_FROM_FAVOURITE_MUTATION : ADD_TO_FAVOURITE_MUTATION}>
-          {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
-            <Button
-              size="small"
-              color="primary"
-              disabled={!UserSession.isActive}
-              onClick={() => controlFavourite(trigger, _id)}
-            >
-              {favourite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
-            </Button>
-          )}
-        </Mutation>
+        {favourite ? (
+          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleRemoveFromFavourite}>
+            Usuń z ulubionych
+          </Button>
+        ) : (
+          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleAddToFavourite}>
+            Dodaj do ulubionych
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
