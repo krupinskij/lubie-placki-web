@@ -22,6 +22,7 @@ export const RECIPE_QUERY = gql`
         _id
         username
       }
+      isFavourite
     }
   }
 `;

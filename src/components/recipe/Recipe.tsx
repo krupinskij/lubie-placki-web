@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -21,6 +22,9 @@ import { RecipeHints } from './RecipeHints';
 
 import { getFullDate } from '../../utils/date-time';
 import { Recipes } from '../../typings/types';
+import { REMOVE_FROM_FAVOURITE_MUTATION } from '../../graphql/remove-from-favourite.mutation';
+import { ADD_TO_FAVOURITE_MUTATION } from '../../graphql/add-to-favourite.mutation';
+import { UserSession } from '../../utils/user-session';
 
 const useStyles = makeStyles({
   cardStyles: {
@@ -45,9 +49,32 @@ const useStyles = makeStyles({
   },
 });
 
-export function Recipe({ _id, name, description, ingredients, directions, hints, createdAt, owner }: Recipes.Recipe) {
+export function Recipe({
+  _id,
+  name,
+  description,
+  ingredients,
+  directions,
+  hints,
+  createdAt,
+  owner,
+  isFavourite,
+}: Recipes.Recipe) {
   const { cardStyles, linkStyles, cardActionsStyles, cardContentStyles, expandMoreIconStyles } = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [favourite, setFavourite] = useState(isFavourite);
+
+  const controlFavourite = (trigger: MutationFunction<any, OperationVariables>, recipeId: string) => {
+    return trigger({
+      variables: {
+        credentials: recipeId,
+      },
+    })
+      .then((resp) => {
+        setFavourite(!favourite);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <Card className={cardStyles} elevation={12}>
@@ -97,9 +124,18 @@ export function Recipe({ _id, name, description, ingredients, directions, hints,
         <Button size="small" color="primary">
           Dodaj komentarz
         </Button>
-        <Button size="small" color="primary">
-          Dodaj do ulubionych
-        </Button>
+        <Mutation mutation={favourite ? REMOVE_FROM_FAVOURITE_MUTATION : ADD_TO_FAVOURITE_MUTATION}>
+          {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
+            <Button
+              size="small"
+              color="primary"
+              disabled={!UserSession.isActive}
+              onClick={() => controlFavourite(trigger, _id)}
+            >
+              {favourite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
+            </Button>
+          )}
+        </Mutation>
       </CardActions>
     </Card>
   );

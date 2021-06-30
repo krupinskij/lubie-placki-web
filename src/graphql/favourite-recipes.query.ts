@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const RECIPES_QUERY = gql`
+export const FAVOURITE_RECIPES_QUERY = gql`
   query {
-    recipes {
+    favouriteRecipes {
       _id
       name
       description

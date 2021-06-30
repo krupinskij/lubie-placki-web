@@ -27,7 +27,7 @@ export function Navbar() {
         <NavbarLink to="/" title="Przepisy" />
         <NavbarLink to="/random" title="Losuj" />
         <NavbarLink to="/create" title="Dodaj" privateLink={true} />
-        <NavbarLink to="/top" title="Topka" />
+        <NavbarLink to="/fav" title="Ulubione" privateLink={true} />
       </NavbarTopLinks>
 
       <NavbarBottomLinks>

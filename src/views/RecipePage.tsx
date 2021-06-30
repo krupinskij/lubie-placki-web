@@ -1,6 +1,8 @@
 import { Query, QueryResult } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 
+import { Error } from '../components/shared/Error';
+import { Loading } from '../components/shared/Loading';
 import { Recipe } from '../components/recipe/Recipe';
 
 import { RECIPE_QUERY } from '../graphql/recipe.query';
@@ -20,14 +22,14 @@ export function RecipePage(props: RecipeProps) {
         id: props.match.params.id,
       }}
     >
-      {({ data, loading }: QueryResult<Recipes.Recipe>) => {
+      {({ data, error }: QueryResult<Recipes.Recipe>) => {
         if (data) {
           return <Recipe {...(data as any).recipe} />;
         }
-        if (loading) {
-          <div>Loading...</div>;
+        if (error) {
+          return <Error />;
         }
-        return <div>Wystąpił błąd</div>;
+        return <Loading />;
       }}
     </Query>
   );

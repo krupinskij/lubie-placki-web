@@ -26,11 +26,17 @@ export namespace Recipes {
       _id: string;
       username: string;
     };
+    isFavourite: boolean;
   };
 
   export type Recipes = {
     __typename?: 'Recipes';
     recipes: Recipe[];
+  };
+
+  export type FavouriteRecipes = {
+    __typename?: 'Recipes';
+    favouriteRecipes: Recipe[];
   };
 
   export type RandomRecipe = {
