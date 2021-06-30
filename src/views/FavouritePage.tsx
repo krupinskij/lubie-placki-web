@@ -15,6 +15,7 @@ export function FavouritePage() {
           return <RecipeList recipes={data.favouriteRecipes} />;
         }
         if (error) {
+          console.error(error);
           return <Error />;
         }
         return <Loading />;

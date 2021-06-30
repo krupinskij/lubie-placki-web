@@ -12,7 +12,7 @@ export function TypePage() {
   const { data, error } = useQuery(TYPE_RECIPES_QUERY, { variables: { type: params.type } });
 
   if (data) {
-    return <RecipeList recipes={data.recipes} />;
+    return <RecipeList recipes={data.typeRecipes} />;
   }
 
   if (error) {
