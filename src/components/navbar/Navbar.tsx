@@ -34,6 +34,8 @@ export function Navbar() {
         <NavbarLink to="/type/makowiec" title="Makowce" />
         <NavbarLink to="/type/sernik" title="Serniki" />
         <NavbarLink to="/type/piernik" title="Pierniki" />
+        <NavbarLink to="/type/swiateczne" title="Świąteczne" />
+        <NavbarLink to="/type/inne" title="Inne" />
       </NavbarBottomLinks>
     </AppBar>
   );

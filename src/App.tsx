@@ -11,6 +11,7 @@ import { UnloggedRoute } from './components/shared/UnloggedRoute';
 import { CreateRecipePage } from './views/CreateRecipePage';
 import { FavouritePage } from './views/FavouritePage';
 import { HomePage } from './views/HomePage';
+import { TypePage } from './views/TypePage';
 import { LoginPage } from './views/LoginPage';
 import { RecipePage } from './views/RecipePage';
 import { RegisterPage } from './views/RegisterPage';
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <RandomRoute path="/random" />
         <Route path="/recipe/:id" component={RecipePage} />
+        <Route path="/type/:type" component={TypePage} />
         <PrivateRoute path="/create" component={CreateRecipePage} />
         <PrivateRoute path="/fav" component={FavouritePage} />
         <UnloggedRoute path="/login" component={LoginPage} />
