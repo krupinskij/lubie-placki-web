@@ -26,6 +26,7 @@ export namespace Recipes {
       _id: string;
       username: string;
     };
+    isFavourite: boolean;
   };
 
   export type Recipes = {
