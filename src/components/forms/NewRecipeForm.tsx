@@ -13,6 +13,7 @@ import { FormActions, FormContainer, FormFields, FormHeader } from '../form/Form
 import { CREATE_RECIPE_MUTATION } from '../../graphql/create-recipe.mutation';
 
 import * as Yup from 'yup';
+import { FormSelect } from '../form/Select';
 
 const useStyles = makeStyles({
   cardStyles: {
@@ -60,6 +61,29 @@ function NewRecipeForm({ history }: RouteComponentProps<void>) {
       .catch((err) => console.log(err));
   };
 
+  const typeOptions = [
+    {
+      value: 'makowiec',
+      display: 'Makowiec',
+    },
+    {
+      value: 'piernik',
+      display: 'Piernik',
+    },
+    {
+      value: 'sernik',
+      display: 'Sernik',
+    },
+    {
+      value: 'swiateczne',
+      display: 'Świąteczne',
+    },
+    {
+      value: 'inne',
+      display: 'Inne',
+    },
+  ];
+
   return (
     <Card className={cardStyles} elevation={12}>
       <Mutation mutation={CREATE_RECIPE_MUTATION}>
@@ -74,6 +98,7 @@ function NewRecipeForm({ history }: RouteComponentProps<void>) {
             initialValues={{
               name: '',
               description: '',
+              type: 'inne',
               ingredients: [],
               directions: [],
               hints: [],
@@ -85,6 +110,7 @@ function NewRecipeForm({ history }: RouteComponentProps<void>) {
                 <FormFields>
                   <FormTextField name="name" label="Nazwa" required={true} />
                   <FormTextField name="description" label="Opis" />
+                  <FormSelect name="type" label="Typ ciasta" options={typeOptions} />
                   <Divider />
                   <TripleSetField
                     name="ingredients"
