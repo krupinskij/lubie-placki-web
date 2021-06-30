@@ -1,4 +1,4 @@
-import { Form } from 'formik';
+import { FormikProvider } from 'formik';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,14 +14,18 @@ const useStyles = makeStyles({
 });
 
 interface FormProps {
+  provider?: any;
+  handleSubmit?: any;
   children: any;
 }
 
-export function FormContainer({ children }: FormProps) {
+export function FormContainer({ provider, handleSubmit, children }: FormProps) {
   return (
-    <CardContent>
-      <Form noValidate={true}>{children}</Form>
-    </CardContent>
+    <FormikProvider value={provider}>
+      <form onSubmit={handleSubmit}>
+        <CardContent>{children}</CardContent>
+      </form>
+    </FormikProvider>
   );
 }
 

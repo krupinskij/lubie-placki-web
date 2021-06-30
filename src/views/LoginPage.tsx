@@ -1,5 +1,5 @@
-import { LoginFormWithRouter } from '../components/forms/LoginForm';
+import { LoginForm } from '../components/forms/LoginForm';
 
 export function LoginPage() {
-  return <LoginFormWithRouter />;
+  return <LoginForm />;
 }

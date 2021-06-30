@@ -1,6 +1,6 @@
-import { Formik } from 'formik';
-import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { useFormik } from 'formik';
+import { useMutation } from 'react-apollo';
+import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -27,57 +27,41 @@ const loginValidationSchema = Yup.object().shape({
   password: Yup.string().required('To pole jest wymagane'),
 });
 
-function LoginForm({ history }: RouteComponentProps<void>) {
+export function LoginForm() {
   const { cardStyles } = useStyles();
-
-  const login = (trigger: MutationFunction<any, OperationVariables>, loginInput: any) => {
-    return trigger({
-      variables: {
-        credentials: loginInput,
-      },
-    })
-      .then((resp) => {
-        const token = resp.data.login.token;
-        UserSession.saveToken(token);
-        history.push('/');
-      })
-      .catch((err) => console.log(err));
-  };
+  const history = useHistory();
+  const [login] = useMutation(LOGIN_MUTATION);
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: loginValidationSchema,
+    validateOnBlur: true,
+    validateOnChange: true,
+    onSubmit: async (loginInput) => {
+      console.log(loginInput);
+      const resp = await login({ variables: { credentials: loginInput } });
+      console.log(resp);
+      const token = resp.data.login.token;
+      UserSession.saveToken(token);
+      history.push('/');
+    },
+  });
 
   return (
     <Card className={cardStyles} elevation={12}>
-      <Mutation mutation={LOGIN_MUTATION}>
-        {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
-          <Formik
-            validationSchema={loginValidationSchema}
-            validateOnBlur={true}
-            validateOnChange={true}
-            onSubmit={(loginInput) => {
-              login(trigger, loginInput);
-            }}
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-          >
-            {({ isValid }) => (
-              <FormContainer>
-                <FormHeader title="Zaloguj się" />
-                <FormFields>
-                  <FormEmailField name="email" label="Email" required={true} />
-                  <FormPasswordField name="password" label="Hasło" required={true} />
-                </FormFields>
-                <FormActions>
-                  <SubmitButton disabled={!isValid} text="Zaloguj się" />
-                </FormActions>
-                <FormLink prefix="Nie masz jeszcze konta?" text="Zarejestuj się" to="/register" />
-              </FormContainer>
-            )}
-          </Formik>
-        )}
-      </Mutation>
+      <FormContainer provider={formik} handleSubmit={formik.handleSubmit}>
+        <FormHeader title="Zaloguj się" />
+        <FormFields>
+          <FormEmailField name="email" label="Email" required={true} />
+          <FormPasswordField name="password" label="Hasło" required={true} />
+        </FormFields>
+        <FormActions>
+          <SubmitButton disabled={!formik.isValid} text="Zaloguj się" />
+        </FormActions>
+        <FormLink prefix="Nie masz jeszcze konta?" text="Zarejestuj się" to="/register" />
+      </FormContainer>
     </Card>
   );
 }
-
-export const LoginFormWithRouter = withRouter(LoginForm);

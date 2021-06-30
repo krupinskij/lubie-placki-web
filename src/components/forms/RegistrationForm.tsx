@@ -1,6 +1,6 @@
-import { Formik } from 'formik';
-import { Mutation, MutationFunction, MutationResult, OperationVariables } from 'react-apollo';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { useFormik } from 'formik';
+import { useMutation } from 'react-apollo';
+import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -31,62 +31,44 @@ const registerValidationSchema = Yup.object().shape({
     .oneOf([Yup.ref('password')], 'Hasła nie pasują do siebie'),
 });
 
-function RegistrationForm({ history }: RouteComponentProps<void>) {
+export function RegistrationForm() {
   const { cardStyles } = useStyles();
-
-  const register = (trigger: MutationFunction<any, OperationVariables>, registerInput: any) => {
-    return trigger({
-      variables: {
-        credentials: registerInput,
-      },
-    })
-      .then((resp) => {
-        const token = resp.data.register.token;
-        UserSession.saveToken(token);
-        history.push('/');
-      })
-      .catch((err) => console.log(err));
-  };
+  const history = useHistory();
+  const [register] = useMutation(REGISTER_MUTATION);
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      email: '',
+      password: '',
+      repeatPassword: '',
+    },
+    validationSchema: registerValidationSchema,
+    validateOnBlur: true,
+    validateOnChange: true,
+    onSubmit: async (registerInput) => {
+      const { repeatPassword, ...credentials } = registerInput;
+      const resp = await register({ variables: { credentials: credentials } });
+      const token = resp.data.login.token;
+      UserSession.saveToken(token);
+      history.push('/');
+    },
+  });
 
   return (
     <Card className={cardStyles} elevation={12}>
-      <Mutation mutation={REGISTER_MUTATION}>
-        {(trigger: MutationFunction<any, Record<string, any>>, result: MutationResult<any>) => (
-          <Formik
-            validationSchema={registerValidationSchema}
-            validateOnBlur={true}
-            validateOnChange={true}
-            onSubmit={(registerInput) => {
-              const { repeatPassword, ...rest } = registerInput;
-              register(trigger, rest);
-            }}
-            initialValues={{
-              username: '',
-              email: '',
-              password: '',
-              repeatPassword: '',
-            }}
-          >
-            {(formik) => (
-              <FormContainer>
-                <FormHeader title="Zarejestruj się" />
-                <FormFields>
-                  <FormTextField name="username" label="Nazwa użytkownika" required={true} />
-                  <FormEmailField name="email" label="Email" required={true} />
-                  <FormPasswordField name="password" label="Hasło" required={true} />
-                  <FormPasswordField name="repeatPassword" label="Powtórz hasło" required={true} />
-                </FormFields>
-                <FormActions>
-                  <SubmitButton disabled={!formik.isValid} text="Zarejestruj się" />
-                </FormActions>
-                <FormLink prefix="Masz już konto?" text="Zaloguj się" to="/login" />
-              </FormContainer>
-            )}
-          </Formik>
-        )}
-      </Mutation>
+      <FormContainer provider={formik} handleSubmit={formik.handleSubmit}>
+        <FormHeader title="Zarejestruj się" />
+        <FormFields>
+          <FormTextField name="username" label="Nazwa użytkownika" required={true} />
+          <FormEmailField name="email" label="Email" required={true} />
+          <FormPasswordField name="password" label="Hasło" required={true} />
+          <FormPasswordField name="repeatPassword" label="Powtórz hasło" required={true} />
+        </FormFields>
+        <FormActions>
+          <SubmitButton disabled={!formik.isValid} text="Zarejestruj się" />
+        </FormActions>
+        <FormLink prefix="Masz już konto?" text="Zaloguj się" to="/login" />
+      </FormContainer>
     </Card>
   );
 }
-
-export const RegistrationFormWithRouter = withRouter(RegistrationForm);
