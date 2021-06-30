@@ -11,13 +11,7 @@ export function TypePage() {
   const params: any = useParams();
   const { data, error } = useQuery(TYPE_RECIPES_QUERY, { variables: { type: params.type } });
 
-  if (data) {
-    return <RecipeList recipes={data.typeRecipes} />;
-  }
-
-  if (error) {
-    return <Error />;
-  }
-
+  if (data) return <RecipeList recipes={data.typeRecipes} />;
+  if (error) return <Error />;
   return <Loading />;
 }
