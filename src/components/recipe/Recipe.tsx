@@ -59,6 +59,7 @@ export function Recipe({
   createdAt,
   owner,
   isFavourite,
+  photo,
 }: Recipes.Recipe) {
   const { cardStyles, linkStyles, cardActionsStyles, cardContentStyles, expandMoreIconStyles } = useStyles();
   const [expanded, setExpanded] = useState(false);
@@ -88,6 +89,7 @@ export function Recipe({
         title={owner.username}
         subheader={getFullDate(createdAt)}
       />
+      <div>{photo}</div>
       <CardMedia
         component="img"
         alt="recipe"

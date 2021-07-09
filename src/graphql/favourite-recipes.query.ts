@@ -23,6 +23,7 @@ export const FAVOURITE_RECIPES_QUERY = gql`
         username
       }
       isFavourite
+      photo
     }
   }
 `;

@@ -27,6 +27,7 @@ export namespace Recipes {
       username: string;
     };
     isFavourite: boolean;
+    photo: string;
   };
 
   export type Recipes = {

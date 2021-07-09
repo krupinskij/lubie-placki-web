@@ -14,6 +14,7 @@ import { FormDropZone } from '../form/DropZone';
 
 import { CREATE_RECIPE_MUTATION } from '../../graphql/create-recipe.mutation';
 import { UPLOAD_PHOTO_MUTATION } from '../../graphql/upload-photo.mutation';
+import { ADD_PHOTO_TO_RECIPE_MUTATION } from '../../graphql/add-photo-to-recipe.mutation';
 
 import * as Yup from 'yup';
 
@@ -78,6 +79,7 @@ export function NewRecipeForm() {
   const history = useHistory();
   const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION);
   const [uploadPhoto] = useMutation(UPLOAD_PHOTO_MUTATION);
+  const [addPhotoToRecipe] = useMutation(ADD_PHOTO_TO_RECIPE_MUTATION);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -92,9 +94,20 @@ export function NewRecipeForm() {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (recipeInput) => {
-      console.log(recipeInput);
-      //await createRecipe({ variables: { credentials: recipeInput } });
-      //await uploadPhoto({ variables: { credentials: recipeInput } });
+      const { filename, ...recipeData } = recipeInput;
+      console.log(filename, recipeData);
+      const recipeResponse = await createRecipe({ variables: { credentials: recipeData } });
+      const photoResponse = await uploadPhoto({ variables: { file: filename[0] } });
+
+      console.log(recipeResponse, photoResponse);
+
+      const photoInput = {
+        photoId: photoResponse?.data?.uploadPhoto?._id,
+        recipeId: recipeResponse?.data?.createRecipe?._id,
+      };
+
+      await addPhotoToRecipe({ variables: { input: photoInput } });
+      console.log('już');
       //history.push('/');
     },
   });
