@@ -31,22 +31,28 @@ import config from '../../config';
 import cakePlaceholder from '../../assets/cake-placeholder.svg';
 
 const useStyles = makeStyles({
-  cardStyles: {
+  card: {
     maxWidth: 700,
+    minWidth: 500,
+    width: '50%',
     margin: 20,
   },
-  linkStyles: {
+  link: {
     textDecoration: 'none',
     color: 'inherit',
     userSelect: 'none',
   },
-  cardActionsStyles: {
+  cardMedia: {
+    height: '400px',
+    width: '100%',
+  },
+  cardActions: {
     justifyContent: 'space-around',
   },
-  cardContentStyles: {
+  cardContent: {
     position: 'relative',
   },
-  expandMoreIconStyles: {
+  expandMoreIcon: {
     position: 'absolute',
     top: 20,
     right: 20,
@@ -65,7 +71,7 @@ export function Recipe({
   isFavourite,
   photo,
 }: Recipes.Recipe) {
-  const { cardStyles, linkStyles, cardActionsStyles, cardContentStyles, expandMoreIconStyles } = useStyles();
+  const styles = useStyles();
 
   const [expanded, setExpanded] = useState(false);
   const [favourite, setFavourite] = useState(isFavourite);
@@ -84,7 +90,7 @@ export function Recipe({
   };
 
   return (
-    <Card className={cardStyles} elevation={12}>
+    <Card className={styles.card} elevation={12}>
       <CardHeader
         action={
           <IconButton aria-label="settings">
@@ -97,14 +103,14 @@ export function Recipe({
       />
       <CardMedia
         component="img"
+        className={styles.cardMedia}
         alt="recipe"
         image={photo ? `${config.API_URL}/file/${photo}` : cakePlaceholder}
         title={name}
-        height="300"
       />
-      <CardContent className={cardContentStyles}>
+      <CardContent className={styles.cardContent}>
         <IconButton
-          className={expandMoreIconStyles}
+          className={styles.expandMoreIcon}
           onClick={() => setExpanded(!expanded)}
           aria-expanded={expanded}
           aria-label="show more"
@@ -112,7 +118,7 @@ export function Recipe({
           <ExpandMoreIcon />
         </IconButton>
         <Typography align="center" gutterBottom variant="h3" component="h2">
-          <Link className={linkStyles} to={`/recipe/${_id}`}>
+          <Link className={styles.link} to={`/recipe/${_id}`}>
             {name}
           </Link>
         </Typography>
@@ -127,7 +133,7 @@ export function Recipe({
           <RecipeHints hints={hints} />
         </CardContent>
       </Collapse>
-      <CardActions className={cardActionsStyles}>
+      <CardActions className={styles.cardActions}>
         <Button size="small" color="primary">
           Dodaj komentarz
         </Button>
