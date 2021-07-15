@@ -4,12 +4,12 @@ import { Error } from '../components/shared/Error';
 import { Loading } from '../components/shared/Loading';
 import { RecipeList } from '../components/recipe/RecipeList';
 
-import { RECIPES_QUERY } from '../graphql/recipes.query';
+import { FAVOURITE_RECIPES_QUERY } from '../graphql/favourite-recipes.query';
 
-export function HomePage() {
-  const { data, error } = useQuery(RECIPES_QUERY);
+export function FavouritePage() {
+  const { data, error } = useQuery(FAVOURITE_RECIPES_QUERY);
 
-  if (data) return <RecipeList recipes={data.recipes} />;
+  if (data) return <RecipeList recipes={data.favouriteRecipes} />;
   if (error) return <Error />;
   return <Loading />;
 }

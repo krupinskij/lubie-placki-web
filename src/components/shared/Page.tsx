@@ -8,6 +8,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    minHeight: 'calc(100vh - 200px)',
   },
 });
 

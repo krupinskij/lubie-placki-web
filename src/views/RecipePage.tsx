@@ -1,38 +1,17 @@
-import { Query, QueryResult } from 'react-apollo';
-import { RouteComponentProps } from 'react-router';
+import { useQuery } from 'react-apollo';
+import { useParams } from 'react-router-dom';
 
-import { Page } from '../components/shared/Page';
+import { Error } from '../components/shared/Error';
+import { Loading } from '../components/shared/Loading';
 import { Recipe } from '../components/recipe/Recipe';
 
 import { RECIPE_QUERY } from '../graphql/recipe.query';
-import { Recipes } from '../typings/types';
 
-interface RecipeMatchParams {
-  id: string;
-}
+export function RecipePage() {
+  const params: any = useParams();
+  const { data, error } = useQuery(RECIPE_QUERY, { variables: { id: params.id } });
 
-type RecipeProps = RouteComponentProps<RecipeMatchParams>;
-
-export function RecipePage(props: RecipeProps) {
-  return (
-    <Page>
-      <Query
-        query={RECIPE_QUERY}
-        variables={{
-          id: props.match.params.id,
-        }}
-      >
-        {({ data, loading }: QueryResult<Recipes.Recipe>) => {
-          if (data) {
-            return <Recipe {...(data as any).recipe} />;
-          }
-          if (loading) {
-            <div>Loading...</div>;
-          }
-
-          return <div>Wystąpił błąd</div>;
-        }}
-      </Query>
-    </Page>
-  );
+  if (data) return <Recipe {...(data as any).recipe} />;
+  if (error) return <Error />;
+  return <Loading />;
 }

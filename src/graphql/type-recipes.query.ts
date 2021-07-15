@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const RECIPE_QUERY = gql`
-  query Recipe($id: String!) {
-    recipe(id: $id) {
+export const TYPE_RECIPES_QUERY = gql`
+  query Recipe($type: String!) {
+    typeRecipes(type: $type) {
       _id
       name
       description
@@ -23,7 +23,6 @@ export const RECIPE_QUERY = gql`
         username
       }
       isFavourite
-      photo
     }
   }
 `;

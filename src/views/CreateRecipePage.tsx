@@ -1,10 +1,5 @@
-import { NewRecipeFormWithRouter } from '../components/forms/NewRecipeForm';
-import { Page } from '../components/shared/Page';
+import { NewRecipeForm } from '../components/forms/NewRecipeForm';
 
 export function CreateRecipePage() {
-  return (
-    <Page>
-      <NewRecipeFormWithRouter />
-    </Page>
-  );
+  return <NewRecipeForm />;
 }

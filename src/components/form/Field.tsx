@@ -1,4 +1,4 @@
-import { Field, FieldArray, FieldAttributes } from 'formik';
+import { FieldArray, useField } from 'formik';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -142,24 +142,22 @@ interface FormBaseFieldProps {
 }
 
 function FormBaseField({ type, label, name, styles, required }: FormBaseFieldProps) {
+  const [field, meta] = useField({ name });
+
   return (
-    <Field name={name}>
-      {({ field, meta }: FieldAttributes<any>) => (
-        <TextField
-          className={styles}
-          type={type || 'text'}
-          label={label}
-          name={name}
-          value={field.value}
-          onChange={field.onChange}
-          onBlur={field.onBlur}
-          error={meta.touched && Boolean(meta.error)}
-          required={required}
-          helperText={meta.touched && meta.error}
-          variant="outlined"
-          fullWidth
-        />
-      )}
-    </Field>
+    <TextField
+      className={styles}
+      type={type || 'text'}
+      label={label}
+      name={name}
+      value={field.value}
+      onChange={field.onChange}
+      onBlur={field.onBlur}
+      error={meta.touched && Boolean(meta.error)}
+      required={required}
+      helperText={meta.touched && meta.error}
+      variant="outlined"
+      fullWidth
+    />
   );
 }
