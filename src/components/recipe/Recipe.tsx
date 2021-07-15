@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from 'react-apollo';
+import { useMutation, useQuery } from 'react-apollo';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -25,6 +25,10 @@ import { Recipes } from '../../typings/types';
 import { REMOVE_FROM_FAVOURITE_MUTATION } from '../../graphql/remove-from-favourite.mutation';
 import { ADD_TO_FAVOURITE_MUTATION } from '../../graphql/add-to-favourite.mutation';
 import { UserSession } from '../../utils/user-session';
+
+import config from '../../config';
+
+import cakePlaceholder from '../../assets/cake-placeholder.svg';
 
 const useStyles = makeStyles({
   cardStyles: {
@@ -62,8 +66,10 @@ export function Recipe({
   photo,
 }: Recipes.Recipe) {
   const { cardStyles, linkStyles, cardActionsStyles, cardContentStyles, expandMoreIconStyles } = useStyles();
+
   const [expanded, setExpanded] = useState(false);
   const [favourite, setFavourite] = useState(isFavourite);
+
   const [addToFavourite] = useMutation(ADD_TO_FAVOURITE_MUTATION);
   const [removeFromFavourite] = useMutation(REMOVE_FROM_FAVOURITE_MUTATION);
 
@@ -89,11 +95,10 @@ export function Recipe({
         title={owner.username}
         subheader={getFullDate(createdAt)}
       />
-      <div>{photo}</div>
       <CardMedia
         component="img"
         alt="recipe"
-        image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F2.bp.blogspot.com%2F-serV4rIzGPo%2FUp9cNFxK62I%2FAAAAAAAAEAA%2F1eJXAp0jcIE%2Fs1600%2Fpiernik-wigilijny.jpg&f=1&nofb=1"
+        image={photo ? `${config.API_URL}/file/${photo}` : cakePlaceholder}
         title={name}
         height="300"
       />
