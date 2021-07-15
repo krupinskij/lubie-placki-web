@@ -10,8 +10,11 @@ import { SubmitButton } from '../button/SubmitButton';
 import { FormTextField, SetField, TripleSetField } from '../form/Field';
 import { FormActions, FormContainer, FormFields, FormHeader } from '../form/Form';
 import { FormSelect } from '../form/Select';
+import { FormDropZone } from '../form/DropZone';
 
 import { CREATE_RECIPE_MUTATION } from '../../graphql/create-recipe.mutation';
+import { UPLOAD_PHOTO_MUTATION } from '../../graphql/upload-photo.mutation';
+import { ADD_PHOTO_TO_RECIPE_MUTATION } from '../../graphql/add-photo-to-recipe.mutation';
 
 import * as Yup from 'yup';
 
@@ -75,11 +78,14 @@ export function NewRecipeForm() {
   const { cardStyles } = useStyles();
   const history = useHistory();
   const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION);
+  const [uploadPhoto] = useMutation(UPLOAD_PHOTO_MUTATION);
+  const [addPhotoToRecipe] = useMutation(ADD_PHOTO_TO_RECIPE_MUTATION);
   const formik = useFormik({
     initialValues: {
       name: '',
       description: '',
       type: 'inne',
+      filename: [],
       ingredients: [],
       directions: [],
       hints: [],
@@ -88,7 +94,18 @@ export function NewRecipeForm() {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (recipeInput) => {
-      await createRecipe({ variables: { credentials: recipeInput } });
+      const { filename, ...recipeData } = recipeInput;
+      const recipeResponse = await createRecipe({ variables: { credentials: recipeData } });
+      if (filename) {
+        const photoResponse = await uploadPhoto({ variables: { file: filename[0] } });
+
+        const photoInput = {
+          photoId: photoResponse?.data?.uploadPhoto?._id,
+          recipeId: recipeResponse?.data?.createRecipe?._id,
+        };
+
+        await addPhotoToRecipe({ variables: { input: photoInput } });
+      }
       history.push('/');
     },
   });
@@ -101,6 +118,8 @@ export function NewRecipeForm() {
           <FormTextField name="name" label="Nazwa" required={true} />
           <FormTextField name="description" label="Opis" />
           <FormSelect name="type" label="Typ ciasta" options={typeOptions} />
+          <Divider />
+          <FormDropZone name="filename" label="Dodaj zdjęcie" />
           <Divider />
           <TripleSetField
             name="ingredients"
