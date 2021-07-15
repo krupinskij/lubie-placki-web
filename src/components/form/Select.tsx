@@ -1,4 +1,4 @@
-import { Field, FieldAttributes, useField } from 'formik';
+import { useField } from 'formik';
 
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';

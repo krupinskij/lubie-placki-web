@@ -95,20 +95,18 @@ export function NewRecipeForm() {
     validateOnChange: true,
     onSubmit: async (recipeInput) => {
       const { filename, ...recipeData } = recipeInput;
-      console.log(filename, recipeData);
       const recipeResponse = await createRecipe({ variables: { credentials: recipeData } });
-      const photoResponse = await uploadPhoto({ variables: { file: filename[0] } });
+      if (filename) {
+        const photoResponse = await uploadPhoto({ variables: { file: filename[0] } });
 
-      console.log(recipeResponse, photoResponse);
+        const photoInput = {
+          photoId: photoResponse?.data?.uploadPhoto?._id,
+          recipeId: recipeResponse?.data?.createRecipe?._id,
+        };
 
-      const photoInput = {
-        photoId: photoResponse?.data?.uploadPhoto?._id,
-        recipeId: recipeResponse?.data?.createRecipe?._id,
-      };
-
-      await addPhotoToRecipe({ variables: { input: photoInput } });
-      console.log('już');
-      //history.push('/');
+        await addPhotoToRecipe({ variables: { input: photoInput } });
+      }
+      history.push('/');
     },
   });
 
