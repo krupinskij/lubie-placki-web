@@ -1,7 +1,7 @@
 import ApolloApp from './ApolloApp';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: 'rgb(168, 0, 0)',
