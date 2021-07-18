@@ -45,3 +45,13 @@ export namespace Recipes {
     _id: string;
   };
 }
+
+export namespace Users {
+  export type User = {
+    __typename?: 'User';
+    _id: string;
+    username: string;
+    bio: string;
+    avatar: string;
+  };
+}

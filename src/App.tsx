@@ -15,6 +15,7 @@ import { TypePage } from './views/TypePage';
 import { LoginPage } from './views/LoginPage';
 import { RecipePage } from './views/RecipePage';
 import { RegisterPage } from './views/RegisterPage';
+import { ProfilePage } from './views/ProfilePage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <PrivateRoute path="/fav" component={FavouritePage} />
         <UnloggedRoute path="/login" component={LoginPage} />
         <UnloggedRoute path="/register" component={RegisterPage} />
+        <Route exact path="/profile/:id" component={ProfilePage} />
         <Footer />
       </Page>
     </BrowserRouter>
