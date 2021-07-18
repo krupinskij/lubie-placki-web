@@ -97,7 +97,7 @@ export function Recipe({
             <MoreVertIcon />
           </IconButton>
         }
-        avatar={<Avatar aria-label="recipe">A</Avatar>}
+        avatar={<Avatar aria-label="recipe">{owner.username[0].toUpperCase()}</Avatar>}
         title={
           <Link href={`/profile/${owner._id}`} color="inherit">
             {owner.username}
