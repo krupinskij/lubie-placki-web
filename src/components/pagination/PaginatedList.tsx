@@ -23,7 +23,7 @@ export const PaginatedList: React.FC<PaginatedListProps> = ({ query, dataName, v
   if (data) {
     return (
       <>
-        <List data={data[dataName].data} component={Recipe} />
+        <List data={data[dataName].data} component={Component} />
         <PaginatedLink currentPage={page} pages={data[dataName].pages} />
       </>
     );

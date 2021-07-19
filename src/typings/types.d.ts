@@ -56,3 +56,17 @@ export namespace Users {
     avatar: string;
   };
 }
+
+export namespace Comments {
+  export type Comment = {
+    __typename?: 'Comment';
+    _id: string;
+    text: string;
+    createdAt: number;
+    owner: {
+      _id: string;
+      username: string;
+      avatar: string;
+    };
+  };
+}

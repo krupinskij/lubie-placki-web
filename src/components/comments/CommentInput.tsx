@@ -1,3 +1,6 @@
+import { useMutation } from 'react-apollo';
+import { useState } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -5,8 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { useState } from 'react';
-import { useMutation } from 'react-apollo';
+
 import { CREATE_COMMENT_MUTATION } from '../../graphql/create-comment';
 
 const useStyles = makeStyles({
@@ -21,7 +23,11 @@ const useStyles = makeStyles({
   },
 });
 
-export function CommentInput() {
+interface CommentInputProps {
+  recipe: string;
+}
+
+export function CommentInput({ recipe }: CommentInputProps) {
   const styles = useStyles();
   const [comment, setComment] = useState('');
   const [error, setError] = useState(false);
@@ -35,7 +41,11 @@ export function CommentInput() {
   };
 
   const addCommentHandle = async () => {
-    await createComment({ variables: { text: comment } });
+    const commentInput = {
+      text: comment,
+      recipeId: recipe,
+    };
+    await createComment({ variables: { commentInput } });
   };
 
   return (

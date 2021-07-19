@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from '@material-ui/core/Link';
 import { useMutation } from 'react-apollo';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,10 +11,11 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Typography from '@material-ui/core/Typography';
 
 import { RecipeIngredients } from './RecipeIngredients';
 import { RecipeMethods } from './RecipeMethods';
@@ -90,11 +90,6 @@ export function Recipe({
   return (
     <Card className={styles.card} elevation={12}>
       <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
         avatar={
           <Avatar aria-label="recipe" src={owner.avatar && `${config.API_URL}/file/${owner.avatar}`}>
             {owner.username[0].toUpperCase()}
