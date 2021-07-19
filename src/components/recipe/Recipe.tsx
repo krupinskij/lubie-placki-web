@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { useMutation } from 'react-apollo';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -97,8 +97,16 @@ export function Recipe({
             <MoreVertIcon />
           </IconButton>
         }
-        avatar={<Avatar aria-label="recipe">A</Avatar>}
-        title={owner.username}
+        avatar={
+          <Avatar aria-label="recipe" src={owner.avatar && `${config.API_URL}/file/${owner.avatar}`}>
+            {owner.username[0].toUpperCase()}
+          </Avatar>
+        }
+        title={
+          <Link href={`/profile/${owner._id}`} color="inherit">
+            {owner.username}
+          </Link>
+        }
         subheader={getFullDate(createdAt)}
       />
       <CardMedia
@@ -118,7 +126,7 @@ export function Recipe({
           <ExpandMoreIcon />
         </IconButton>
         <Typography align="center" gutterBottom variant="h3" component="h2">
-          <Link className={styles.link} to={`/recipe/${_id}`}>
+          <Link className={styles.link} underline="none" href={`/recipe/${_id}`}>
             {name}
           </Link>
         </Typography>

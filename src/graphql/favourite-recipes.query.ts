@@ -22,6 +22,7 @@ export const FAVOURITE_RECIPES_QUERY = gql`
         owner {
           _id
           username
+          avatar
         }
         isFavourite
         photo

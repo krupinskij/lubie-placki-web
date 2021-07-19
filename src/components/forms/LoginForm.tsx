@@ -40,9 +40,7 @@ export function LoginForm() {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (loginInput) => {
-      console.log(loginInput);
       const resp = await login({ variables: { credentials: loginInput } });
-      console.log(resp);
       const token = resp.data.login.token;
       UserSession.saveToken(token);
       history.push('/');
