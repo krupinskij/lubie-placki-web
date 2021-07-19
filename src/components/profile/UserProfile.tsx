@@ -4,6 +4,7 @@ import { Avatar, CardActions, CardContent, Grid, Typography, Link, Button } from
 import { Users } from '../../typings/types';
 
 import config from '../../config';
+import { UserSession } from '../../utils/user-session';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export function UserProfile({ username, bio, avatar }: Users.User) {
+export function UserProfile({ _id, username, bio, avatar }: Users.User) {
   const styles = useStyles();
 
   return (
@@ -47,15 +48,17 @@ export function UserProfile({ username, bio, avatar }: Users.User) {
           </Grid>
         </Grid>
       </CardContent>
-      <CardActions>
-        <Grid container spacing={2} justifyContent="flex-end">
-          <Grid item>
-            <Link component={Button} underline="none" href="/edit/profile">
-              Edytuj profil
-            </Link>
+      {UserSession.userId === _id && (
+        <CardActions>
+          <Grid container spacing={2} justifyContent="flex-end">
+            <Grid item>
+              <Link component={Button} underline="none" href="/edit/profile">
+                Edytuj profil
+              </Link>
+            </Grid>
           </Grid>
-        </Grid>
-      </CardActions>
+        </CardActions>
+      )}
     </Card>
   );
 }
