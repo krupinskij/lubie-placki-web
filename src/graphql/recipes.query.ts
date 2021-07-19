@@ -1,29 +1,33 @@
 import gql from 'graphql-tag';
 
 export const RECIPES_QUERY = gql`
-  query {
-    recipes {
-      _id
-      name
-      description
-      ingredients {
-        product
-        quantity
-        unit
-      }
-      directions {
-        text
-      }
-      hints {
-        text
-      }
-      createdAt
-      owner {
+  query Recipes($paginationInput: PaginationInput!) {
+    recipes(pageInput: $paginationInput) {
+      data {
         _id
-        username
+        name
+        description
+        ingredients {
+          product
+          quantity
+          unit
+        }
+        directions {
+          text
+        }
+        hints {
+          text
+        }
+        createdAt
+        owner {
+          _id
+          username
+          avatar
+        }
+        isFavourite
+        photo
       }
-      isFavourite
-      photo
+      pages
     }
   }
 `;

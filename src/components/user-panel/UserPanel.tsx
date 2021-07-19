@@ -43,7 +43,7 @@ function LoggedUserPanel() {
 
   return (
     <div className={loggedUserPanelStyles}>
-      <Button variant="outlined" component={Link} to="/profile">
+      <Button variant="outlined" component={Link} to={`/profile/${UserSession.userId}`}>
         Moje konto
       </Button>
       <Button variant="outlined" onClick={UserSession.removeToken}>

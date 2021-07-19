@@ -25,6 +25,7 @@ export namespace Recipes {
     owner: {
       _id: string;
       username: string;
+      avatar: string;
     };
     isFavourite: boolean;
     photo: string;
@@ -43,5 +44,29 @@ export namespace Recipes {
   export type RandomRecipe = {
     __typename?: 'RandomRecipe';
     _id: string;
+  };
+}
+
+export namespace Users {
+  export type User = {
+    __typename?: 'User';
+    _id: string;
+    username: string;
+    bio: string;
+    avatar: string;
+  };
+}
+
+export namespace Comments {
+  export type Comment = {
+    __typename?: 'Comment';
+    _id: string;
+    text: string;
+    createdAt: number;
+    owner: {
+      _id: string;
+      username: string;
+      avatar: string;
+    };
   };
 }

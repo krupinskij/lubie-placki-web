@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const TYPE_RECIPES_QUERY = gql`
-  query TypeRecipes($paginationInput: PaginationInput!, $type: String!) {
-    typeRecipes(pageInput: $paginationInput, type: $type) {
+export const USER_RECIPES_QUERY = gql`
+  query UserRecipes($paginationInput: PaginationInput!, $owner: String!) {
+    userRecipes(pageInput: $paginationInput, owner: $owner) {
       data {
         _id
         name
