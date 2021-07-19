@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import Collapse from '@material-ui/core/Collapse';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -29,7 +30,6 @@ import { UserSession } from '../../utils/user-session';
 import config from '../../config';
 
 import cakePlaceholder from '../../assets/cake-placeholder.svg';
-import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
   card: {
