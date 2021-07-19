@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from '@material-ui/core/Link';
 import { useMutation } from 'react-apollo';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,10 +10,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Typography from '@material-ui/core/Typography';
 
 import { RecipeIngredients } from './RecipeIngredients';
 import { RecipeMethods } from './RecipeMethods';
@@ -45,9 +46,6 @@ const useStyles = makeStyles({
   cardMedia: {
     height: '400px',
     width: '100%',
-  },
-  cardActions: {
-    justifyContent: 'space-around',
   },
   cardContent: {
     position: 'relative',
@@ -92,11 +90,6 @@ export function Recipe({
   return (
     <Card className={styles.card} elevation={12}>
       <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
         avatar={
           <Avatar aria-label="recipe" src={owner.avatar && `${config.API_URL}/file/${owner.avatar}`}>
             {owner.username[0].toUpperCase()}
@@ -141,19 +134,20 @@ export function Recipe({
           <RecipeHints hints={hints} />
         </CardContent>
       </Collapse>
-      <CardActions className={styles.cardActions}>
-        <Button size="small" color="primary">
-          Dodaj komentarz
-        </Button>
-        {favourite ? (
-          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleRemoveFromFavourite}>
-            Usuń z ulubionych
-          </Button>
-        ) : (
-          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleAddToFavourite}>
-            Dodaj do ulubionych
-          </Button>
-        )}
+      <CardActions>
+        <Grid container spacing={2} justifyContent="flex-end">
+          <Grid item>
+            {favourite ? (
+              <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleRemoveFromFavourite}>
+                Usuń z ulubionych
+              </Button>
+            ) : (
+              <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleAddToFavourite}>
+                Dodaj do ulubionych
+              </Button>
+            )}
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );
