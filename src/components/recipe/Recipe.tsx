@@ -29,6 +29,7 @@ import { UserSession } from '../../utils/user-session';
 import config from '../../config';
 
 import cakePlaceholder from '../../assets/cake-placeholder.svg';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
   card: {
@@ -45,9 +46,6 @@ const useStyles = makeStyles({
   cardMedia: {
     height: '400px',
     width: '100%',
-  },
-  cardActions: {
-    justifyContent: 'space-around',
   },
   cardContent: {
     position: 'relative',
@@ -141,19 +139,20 @@ export function Recipe({
           <RecipeHints hints={hints} />
         </CardContent>
       </Collapse>
-      <CardActions className={styles.cardActions}>
-        <Button size="small" color="primary">
-          Dodaj komentarz
-        </Button>
-        {favourite ? (
-          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleRemoveFromFavourite}>
-            Usuń z ulubionych
-          </Button>
-        ) : (
-          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleAddToFavourite}>
-            Dodaj do ulubionych
-          </Button>
-        )}
+      <CardActions>
+        <Grid container spacing={2} justifyContent="flex-end">
+          <Grid item>
+            {favourite ? (
+              <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleRemoveFromFavourite}>
+                Usuń z ulubionych
+              </Button>
+            ) : (
+              <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleAddToFavourite}>
+                Dodaj do ulubionych
+              </Button>
+            )}
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );
