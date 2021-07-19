@@ -16,6 +16,7 @@ import { LoginPage } from './views/LoginPage';
 import { RecipePage } from './views/RecipePage';
 import { RegisterPage } from './views/RegisterPage';
 import { ProfilePage } from './views/ProfilePage';
+import { EditProfilePage } from './views/EditProfilePage';
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
         <PrivateRoute path="/fav" component={FavouritePage} />
         <UnloggedRoute path="/login" component={LoginPage} />
         <UnloggedRoute path="/register" component={RegisterPage} />
-        <Route exact path="/profile/:id" component={ProfilePage} />
+        <Route path="/profile/:id" component={ProfilePage} />
+        <PrivateRoute path="/edit/profile" component={EditProfilePage} />
         <Footer />
       </Page>
     </BrowserRouter>

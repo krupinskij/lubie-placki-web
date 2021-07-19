@@ -25,6 +25,7 @@ export namespace Recipes {
     owner: {
       _id: string;
       username: string;
+      avatar: string;
     };
     isFavourite: boolean;
     photo: string;

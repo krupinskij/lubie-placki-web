@@ -1,6 +1,6 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import { Avatar, CardContent, Grid, Typography } from '@material-ui/core';
+import { Avatar, CardActions, CardContent, Grid, Typography, Link, Button } from '@material-ui/core';
 import { Users } from '../../typings/types';
 
 import config from '../../config';
@@ -47,6 +47,15 @@ export function UserProfile({ username, bio, avatar }: Users.User) {
           </Grid>
         </Grid>
       </CardContent>
+      <CardActions>
+        <Grid container spacing={2} justifyContent="flex-end">
+          <Grid item>
+            <Link component={Button} underline="none" href="/edit/profile">
+              Edytuj profil
+            </Link>
+          </Grid>
+        </Grid>
+      </CardActions>
     </Card>
   );
 }
