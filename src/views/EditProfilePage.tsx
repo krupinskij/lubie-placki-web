@@ -10,14 +10,15 @@ import { USER_QUERY } from '../graphql/user.query';
 import { UserSession } from '../utils/user-session';
 
 export function EditProfilePage() {
-  const { data, error } = useQuery(USER_QUERY, { variables: { id: UserSession.userId } });
-  if (data)
-    return (
-      <>
-        <EditProfileForm user={data.user} />
-        <EditAvatarForm />
-      </>
-    );
+  const { data, error, loading } = useQuery(USER_QUERY, { variables: { id: UserSession.userId } });
+
+  if (loading) return <Loading />;
   if (error) return <Error />;
-  return <Loading />;
+
+  return (
+    <>
+      <EditProfileForm user={data.user} />
+      <EditAvatarForm />
+    </>
+  );
 }
