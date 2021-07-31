@@ -11,7 +11,10 @@ import { COMMENTS_QUERY } from '../graphql/comments.query';
 
 export function RecipePage() {
   const params: any = useParams();
-  const { data, error, loading } = useQuery(RECIPE_QUERY, { variables: { id: params.id } });
+  const { data, error, loading } = useQuery(RECIPE_QUERY, {
+    variables: { id: params.id },
+    fetchPolicy: 'cache-and-network',
+  });
 
   if (loading) return <Loading />;
   if (error) return <Error />;

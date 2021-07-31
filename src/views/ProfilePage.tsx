@@ -9,7 +9,10 @@ import { USER_QUERY } from '../graphql/user.query';
 
 export function ProfilePage() {
   const params: any = useParams();
-  const { data, error, loading } = useQuery(USER_QUERY, { variables: { id: params.id } });
+  const { data, error, loading } = useQuery(USER_QUERY, {
+    variables: { id: params.id },
+    fetchPolicy: 'cache-and-network',
+  });
 
   if (loading) return <Loading />;
   if (error) return <Error />;

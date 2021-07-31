@@ -17,7 +17,10 @@ export const PaginatedList: React.FC<PaginatedListProps> = ({ query, dataName, v
   const { search } = useLocation();
   const page = +(new URLSearchParams(search).get('page') || '1');
 
-  const { data, error, loading } = useQuery(query, { variables: { ...variables, paginationInput: { page } } });
+  const { data, error, loading } = useQuery(query, {
+    variables: { ...variables, paginationInput: { page } },
+    fetchPolicy: 'cache-and-network',
+  });
 
   if (loading) return <Loading />;
   if (error) return <Error />;
