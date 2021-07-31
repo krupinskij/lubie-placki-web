@@ -3,7 +3,6 @@ import { DocumentNode } from 'graphql';
 import { useLocation } from 'react-router';
 import { useQuery } from 'react-apollo';
 import { List } from '../shared/List';
-import { Recipe } from '../recipe/Recipe';
 import { Loading } from '../shared/Loading';
 import { Error } from '../shared/Error';
 

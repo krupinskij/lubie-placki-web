@@ -6,7 +6,6 @@ import { Loading } from '../components/shared/Loading';
 import { Recipe } from '../components/recipe/Recipe';
 
 import { RECIPE_QUERY } from '../graphql/recipe.query';
-import { CommentInput } from '../components/comments/CommentInput';
 import { CommentList } from '../components/comments/CommentList';
 import { COMMENTS_QUERY } from '../graphql/comments.query';
 
