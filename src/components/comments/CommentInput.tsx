@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
 import { CREATE_COMMENT_MUTATION } from '../../graphql/create-comment';
+import { COMMENTS_QUERY } from '../../graphql/comments.query';
 
 const useStyles = makeStyles({
   card: {
@@ -32,7 +33,9 @@ export function CommentInput({ recipe }: CommentInputProps) {
   const [comment, setComment] = useState('');
   const [error, setError] = useState(false);
 
-  const [createComment] = useMutation(CREATE_COMMENT_MUTATION);
+  const [createComment] = useMutation(CREATE_COMMENT_MUTATION, {
+    refetchQueries: ['CommentsByRecipeId'],
+  });
 
   const setCommentHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value;
@@ -46,6 +49,8 @@ export function CommentInput({ recipe }: CommentInputProps) {
       recipeId: recipe,
     };
     await createComment({ variables: { commentInput } });
+    setComment('');
+    setError(false);
   };
 
   return (
