@@ -96,7 +96,7 @@ export function NewRecipeForm() {
     onSubmit: async (recipeInput) => {
       const { filename, ...recipeData } = recipeInput;
       const recipeResponse = await createRecipe({ variables: { credentials: recipeData } });
-      if (filename) {
+      if (!!filename.length) {
         const photoResponse = await uploadPhoto({ variables: { file: filename[0] } });
 
         const photoInput = {

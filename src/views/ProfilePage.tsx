@@ -9,15 +9,18 @@ import { USER_QUERY } from '../graphql/user.query';
 
 export function ProfilePage() {
   const params: any = useParams();
-  const { data, error } = useQuery(USER_QUERY, { variables: { id: params.id } });
+  const { data, error, loading } = useQuery(USER_QUERY, {
+    variables: { id: params.id },
+    fetchPolicy: 'cache-and-network',
+  });
 
-  if (data)
-    return (
-      <>
-        <UserProfile {...(data as any).user} />
-        <RecipeList query={USER_RECIPES_QUERY} variables={{ owner: params.id }} dataName="userRecipes" />;
-      </>
-    );
+  if (loading) return <Loading />;
   if (error) return <Error />;
-  return <Loading />;
+
+  return (
+    <>
+      <UserProfile {...(data as any).user} />
+      <RecipeList query={USER_RECIPES_QUERY} variables={{ owner: params.id }} dataName="userRecipes" />;
+    </>
+  );
 }

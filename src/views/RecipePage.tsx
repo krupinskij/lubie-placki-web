@@ -6,26 +6,28 @@ import { Loading } from '../components/shared/Loading';
 import { Recipe } from '../components/recipe/Recipe';
 
 import { RECIPE_QUERY } from '../graphql/recipe.query';
-import { CommentInput } from '../components/comments/CommentInput';
 import { CommentList } from '../components/comments/CommentList';
 import { COMMENTS_QUERY } from '../graphql/comments.query';
 
 export function RecipePage() {
   const params: any = useParams();
-  const { data, error } = useQuery(RECIPE_QUERY, { variables: { id: params.id } });
+  const { data, error, loading } = useQuery(RECIPE_QUERY, {
+    variables: { id: params.id },
+    fetchPolicy: 'cache-and-network',
+  });
 
-  if (data)
-    return (
-      <>
-        <Recipe {...(data as any).recipe} />;
-        <CommentList
-          query={COMMENTS_QUERY}
-          dataName="commentsByRecipeId"
-          variables={{ recipeId: params.id }}
-          recipe={params.id}
-        />
-      </>
-    );
+  if (loading) return <Loading />;
   if (error) return <Error />;
-  return <Loading />;
+
+  return (
+    <>
+      <Recipe {...(data as any).recipe} />;
+      <CommentList
+        query={COMMENTS_QUERY}
+        dataName="commentsByRecipeId"
+        variables={{ recipeId: params.id }}
+        recipe={params.id}
+      />
+    </>
+  );
 }
