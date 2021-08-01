@@ -9,7 +9,8 @@ import { ApolloProvider } from 'react-apollo';
 
 import config from './config';
 
-const authLink = setContext((_, { headers }) => {
+const authLink = setContext((request, { headers }) => {
+  console.log(request);
   const token = localStorage.getItem(config.TOKEN_KEY);
   return token
     ? {

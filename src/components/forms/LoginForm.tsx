@@ -41,8 +41,9 @@ export function LoginForm() {
     validateOnChange: true,
     onSubmit: async (loginInput) => {
       const resp = await login({ variables: { credentials: loginInput } });
-      const token = resp.data.login.token;
+      const { token, refreshToken } = resp.data.login;
       UserSession.saveToken(token);
+      UserSession.saveRefreshToken(refreshToken);
       history.push('/');
     },
   });
