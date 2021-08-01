@@ -36,11 +36,12 @@ export class UserSession {
   }
 
   public static saveRefreshToken(refreshToken: string): void {
-    localStorage.setItem(config.TOKEN_KEY, refreshToken);
+    localStorage.setItem(config.REFRESH_TOKEN_KEY, refreshToken);
   }
 
   public static removeToken(): void {
     localStorage.removeItem(config.TOKEN_KEY);
+    window.location.reload();
   }
 
   private static get decodedToken(): AuthTokenPayload | undefined {

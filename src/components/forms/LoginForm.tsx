@@ -44,7 +44,7 @@ export function LoginForm() {
       const { token, refreshToken } = resp.data.login;
       UserSession.saveToken(token);
       UserSession.saveRefreshToken(refreshToken);
-      history.push('/');
+      window.location.href = '/';
     },
   });
 
