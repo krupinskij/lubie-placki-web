@@ -15,7 +15,7 @@ import { UserSession } from './utils/user-session';
 let client: ApolloClient<NormalizedCacheObject>;
 
 const authLink = setContext((request, { headers }) => {
-  const token = localStorage.getItem(config.TOKEN_KEY);
+  const token = UserSession.getToken();
   return token
     ? {
         headers: {
@@ -33,17 +33,23 @@ const httpLink = createUploadLink({
 });
 
 const getNewToken = () => {
-  return client.query({ query: REFRESH_TOKEN_QUERY }).then((response) => {
-    const { token } = response.data;
-    return token;
-  });
+  return client
+    .query({
+      query: REFRESH_TOKEN_QUERY,
+      variables: {
+        refreshToken: UserSession.getRefreshToken(),
+      },
+    })
+    .then((response) => {
+      return response.data?.refreshToken?.token;
+    });
 };
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors) {
     for (let err of graphQLErrors) {
-      switch (err?.extensions?.code) {
-        case 'UNAUTHENTICATED':
+      switch (err?.message) {
+        case 'Unauthorized':
           return fromPromise(
             getNewToken().catch((error) => {
               UserSession.removeToken();
@@ -53,8 +59,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
             .filter((value) => Boolean(value))
             .flatMap((accessToken) => {
               const oldHeaders = operation.getContext().headers;
-              console.log(accessToken);
-              // UserSession.saveToken(accessToken);
+              UserSession.saveToken(accessToken);
               operation.setContext({
                 headers: {
                   ...oldHeaders,
@@ -70,7 +75,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
 });
 
 client = new ApolloClient({
-  link: ApolloLink.from([authLink, httpLink, errorLink]),
+  link: ApolloLink.from([errorLink, authLink, httpLink]),
   cache: new InMemoryCache(),
 });
 
