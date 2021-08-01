@@ -1,16 +1,21 @@
 import App from './App';
 
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink, fromPromise } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { createUploadLink } from 'apollo-upload-client';
 import { ApolloProvider } from 'react-apollo';
+import { onError } from 'apollo-link-error';
 
+import { REFRESH_TOKEN_QUERY } from './graphql/refresh-token.query';
 import config from './config';
+import { UserSession } from './utils/user-session';
 
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem(config.TOKEN_KEY);
+let client: ApolloClient<NormalizedCacheObject>;
+
+const authLink = setContext((request, { headers }) => {
+  const token = UserSession.getToken();
   return token
     ? {
         headers: {
@@ -27,8 +32,50 @@ const httpLink = createUploadLink({
   uri: `${config.API_URL}/graphql`,
 });
 
-const client = new ApolloClient({
-  link: ApolloLink.from([authLink, httpLink]),
+const getNewToken = () => {
+  return client
+    .query({
+      query: REFRESH_TOKEN_QUERY,
+      variables: {
+        refreshToken: UserSession.getRefreshToken(),
+      },
+    })
+    .then((response) => {
+      return response.data?.refreshToken?.token;
+    });
+};
+
+const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
+  if (graphQLErrors) {
+    for (let err of graphQLErrors) {
+      switch (err?.message) {
+        case 'Unauthorized':
+          return fromPromise(
+            getNewToken().catch((error) => {
+              UserSession.removeToken();
+              return;
+            }),
+          )
+            .filter((value) => Boolean(value))
+            .flatMap((accessToken) => {
+              const oldHeaders = operation.getContext().headers;
+              UserSession.saveToken(accessToken);
+              operation.setContext({
+                headers: {
+                  ...oldHeaders,
+                  authorization: `Bearer ${accessToken}`,
+                },
+              });
+
+              return forward(operation);
+            });
+      }
+    }
+  }
+});
+
+client = new ApolloClient({
+  link: ApolloLink.from([errorLink, authLink, httpLink]),
   cache: new InMemoryCache(),
 });
 
