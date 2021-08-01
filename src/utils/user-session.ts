@@ -1,4 +1,6 @@
 import jwt_decode from 'jwt-decode';
+import cookies from 'js-cookie';
+
 import config from '../config';
 
 interface AuthTokenPayload {
@@ -32,17 +34,28 @@ export class UserSession {
   }
 
   public static saveToken(token: string): void {
-    localStorage.setItem(config.TOKEN_KEY, token);
-    window.location.reload();
+    cookies.set(config.TOKEN_KEY, token);
+  }
+
+  public static saveRefreshToken(refreshToken: string): void {
+    cookies.set(config.REFRESH_TOKEN_KEY, refreshToken);
   }
 
   public static removeToken(): void {
-    localStorage.removeItem(config.TOKEN_KEY);
+    cookies.remove(config.TOKEN_KEY);
     window.location.reload();
   }
 
+  public static getToken(): string | undefined {
+    return cookies.get(config.TOKEN_KEY);
+  }
+
+  public static getRefreshToken(): string | undefined {
+    return cookies.get(config.REFRESH_TOKEN_KEY);
+  }
+
   private static get decodedToken(): AuthTokenPayload | undefined {
-    const token = localStorage.getItem(config.TOKEN_KEY);
+    const token = cookies.get(config.TOKEN_KEY);
 
     return token ? jwt_decode(token) : undefined;
   }
