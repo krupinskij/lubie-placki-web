@@ -1,24 +1,14 @@
 import { useFormik } from 'formik';
 import { useMutation } from 'react-apollo';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-
 import { SubmitButton } from '../button/SubmitButton';
+import { CardContainer } from '../card/Card';
 import { FormTextField } from '../form/Field';
 import { FormActions, FormContainer, FormFields, FormHeader } from '../form/Form';
 
 import { EDIT_USER_MUTATION } from '../../graphql/edit-user.mutation';
 
 import * as Yup from 'yup';
-
-const useStyles = makeStyles({
-  card: {
-    width: 700,
-    margin: 20,
-    padding: 30,
-  },
-});
 
 const editProfileValidationSchema = Yup.object().shape({
   username: Yup.string().required('To pole jest wymagane').min(5, 'Nazwa użytkownika musi mieć co najmniej 5 znaków'),
@@ -32,8 +22,6 @@ interface EditProfileFormProps {
 }
 
 export function EditProfileForm({ user }: EditProfileFormProps) {
-  const styles = useStyles();
-
   const [editUser] = useMutation(EDIT_USER_MUTATION);
   const formik = useFormik({
     initialValues: {
@@ -50,7 +38,7 @@ export function EditProfileForm({ user }: EditProfileFormProps) {
   });
 
   return (
-    <Card className={styles.card} elevation={12}>
+    <CardContainer>
       <FormContainer provider={formik} handleSubmit={formik.handleSubmit}>
         <FormHeader title="Edytuj swoje dane" />
         <FormFields>
@@ -61,6 +49,6 @@ export function EditProfileForm({ user }: EditProfileFormProps) {
           <SubmitButton disabled={!formik.isValid} text="Edytuj" />
         </FormActions>
       </FormContainer>
-    </Card>
+    </CardContainer>
   );
 }

@@ -52,7 +52,7 @@ export namespace Users {
     __typename?: 'User';
     _id: string;
     username: string;
-    bio: string;
+    bio?: string;
     avatar: string;
   };
 }

@@ -2,11 +2,10 @@ import { useFormik } from 'formik';
 import { useMutation } from 'react-apollo';
 import { useHistory } from 'react-router';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 
 import { SubmitButton } from '../button/SubmitButton';
+import { CardContainer } from '../card/Card';
 import { FormTextField, SetField, TripleSetField } from '../form/Field';
 import { FormActions, FormContainer, FormFields, FormHeader } from '../form/Form';
 import { FormSelect } from '../form/Select';
@@ -17,14 +16,6 @@ import { UPLOAD_PHOTO_MUTATION } from '../../graphql/upload-photo.mutation';
 import { ADD_PHOTO_TO_RECIPE_MUTATION } from '../../graphql/add-photo-to-recipe.mutation';
 
 import * as Yup from 'yup';
-
-const useStyles = makeStyles({
-  cardStyles: {
-    width: 700,
-    margin: 20,
-    padding: 30,
-  },
-});
 
 const createRecipeValidationSchema = Yup.object().shape({
   name: Yup.string().required('To pole jest wymagane'),
@@ -75,7 +66,6 @@ const typeOptions = [
 ];
 
 export function NewRecipeForm() {
-  const { cardStyles } = useStyles();
   const history = useHistory();
   const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION);
   const [uploadPhoto] = useMutation(UPLOAD_PHOTO_MUTATION);
@@ -111,7 +101,7 @@ export function NewRecipeForm() {
   });
 
   return (
-    <Card className={cardStyles} elevation={12}>
+    <CardContainer>
       <FormContainer provider={formik} handleSubmit={formik.handleSubmit}>
         <FormHeader title="Dodaj nowy przepis" />
         <FormFields>
@@ -136,6 +126,6 @@ export function NewRecipeForm() {
           <SubmitButton disabled={!formik.isValid} text="Dodaj przepis" />
         </FormActions>
       </FormContainer>
-    </Card>
+    </CardContainer>
   );
 }

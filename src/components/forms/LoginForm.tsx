@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 
 import { SubmitButton } from '../button/SubmitButton';
+import { CardContainer } from '../card/Card';
 import { FormActions, FormContainer, FormFields, FormHeader, FormLink } from '../form/Form';
 import { FormEmailField, FormPasswordField } from '../form/Field';
 
@@ -14,21 +15,12 @@ import { UserSession } from '../../utils/user-session';
 
 import * as Yup from 'yup';
 
-const useStyles = makeStyles({
-  cardStyles: {
-    width: 700,
-    margin: 20,
-    padding: 30,
-  },
-});
-
 const loginValidationSchema = Yup.object().shape({
   email: Yup.string().required('To pole jest wymagane').email('Niepoprawny format'),
   password: Yup.string().required('To pole jest wymagane'),
 });
 
 export function LoginForm() {
-  const { cardStyles } = useStyles();
   const history = useHistory();
   const [login] = useMutation(LOGIN_MUTATION);
   const formik = useFormik({
@@ -49,7 +41,7 @@ export function LoginForm() {
   });
 
   return (
-    <Card className={cardStyles} elevation={12}>
+    <CardContainer>
       <FormContainer provider={formik} handleSubmit={formik.handleSubmit}>
         <FormHeader title="Zaloguj się" />
         <FormFields>
@@ -61,6 +53,6 @@ export function LoginForm() {
         </FormActions>
         <FormLink prefix="Nie masz jeszcze konta?" text="Zarejestuj się" to="/register" />
       </FormContainer>
-    </Card>
+    </CardContainer>
   );
 }
