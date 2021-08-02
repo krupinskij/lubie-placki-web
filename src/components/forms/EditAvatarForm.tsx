@@ -1,10 +1,8 @@
 import { useFormik } from 'formik';
 import { useMutation } from 'react-apollo';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-
 import { SubmitButton } from '../button/SubmitButton';
+import { CardContainer } from '../card/Card';
 import { FormDropZone } from '../form/DropZone';
 import { FormActions, FormContainer, FormFields, FormHeader } from '../form/Form';
 
@@ -13,19 +11,9 @@ import { UPLOAD_PHOTO_MUTATION } from '../../graphql/upload-photo.mutation';
 
 import * as Yup from 'yup';
 
-const useStyles = makeStyles({
-  card: {
-    width: 700,
-    margin: 20,
-    padding: 30,
-  },
-});
-
 const editAvatarValidationSchema = Yup.object().shape({});
 
 export function EditAvatarForm() {
-  const styles = useStyles();
-
   const [uploadPhoto] = useMutation(UPLOAD_PHOTO_MUTATION);
   const [addAvatarToUser] = useMutation(ADD_AVATAR_TO_USER_MUTATION);
 
@@ -45,7 +33,7 @@ export function EditAvatarForm() {
   });
 
   return (
-    <Card className={styles.card} elevation={12}>
+    <CardContainer>
       <FormContainer provider={formik} handleSubmit={formik.handleSubmit}>
         <FormHeader title="Edytuj swoje zdjęcie" />
         <FormFields>
@@ -55,6 +43,6 @@ export function EditAvatarForm() {
           <SubmitButton disabled={!formik.isValid} text="Wgraj" />
         </FormActions>
       </FormContainer>
-    </Card>
+    </CardContainer>
   );
 }
