@@ -2,10 +2,14 @@ import { FormikProvider } from 'formik';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
+import { CardBody } from '../card/Card';
+
 const useStyles = makeStyles({
+  cardBody: {
+    padding: 50,
+  },
   formActionsStyles: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -20,10 +24,11 @@ interface FormProps {
 }
 
 export function FormContainer({ provider, handleSubmit, children }: FormProps) {
+  const styles = useStyles();
   return (
     <FormikProvider value={provider}>
       <form onSubmit={handleSubmit}>
-        <CardContent>{children}</CardContent>
+        <CardBody className={styles.cardBody}>{children}</CardBody>
       </form>
     </FormikProvider>
   );

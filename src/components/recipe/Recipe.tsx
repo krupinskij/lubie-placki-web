@@ -2,15 +2,8 @@ import { useState } from 'react';
 import { useMutation } from 'react-apollo';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import Collapse from '@material-ui/core/Collapse';
-import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
@@ -19,40 +12,34 @@ import Typography from '@material-ui/core/Typography';
 import { RecipeIngredients } from './RecipeIngredients';
 import { RecipeMethods } from './RecipeMethods';
 import { RecipeHints } from './RecipeHints';
+import { CardBody, CardContainer, CardFooter, CardHeader, CardImage } from '../card/Card';
 
-import { getFullDate } from '../../utils/date-time';
-import { Recipes } from '../../typings/types';
 import { REMOVE_FROM_FAVOURITE_MUTATION } from '../../graphql/remove-from-favourite.mutation';
 import { ADD_TO_FAVOURITE_MUTATION } from '../../graphql/add-to-favourite.mutation';
+
 import { UserSession } from '../../utils/user-session';
+import { Recipes } from '../../typings/types';
 
 import config from '../../config';
 
 import cakePlaceholder from '../../assets/cake-placeholder.svg';
 
 const useStyles = makeStyles({
-  card: {
-    maxWidth: 700,
-    minWidth: 500,
-    width: '50%',
-    margin: 20,
-  },
-  link: {
-    textDecoration: 'none',
-    color: 'inherit',
-    userSelect: 'none',
-  },
-  cardMedia: {
-    height: '400px',
-    width: '100%',
-  },
-  cardContent: {
+  cardBody: {
     position: 'relative',
+  },
+  collapse: {
+    padding: 20,
   },
   expandMoreIcon: {
     position: 'absolute',
     top: 20,
     right: 20,
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'inherit',
+    userSelect: 'none',
   },
 });
 
@@ -87,28 +74,10 @@ export function Recipe({
   };
 
   return (
-    <Card className={styles.card} elevation={12}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" src={owner.avatar && `${config.API_URL}/file/${owner.avatar}`}>
-            {owner.username[0].toUpperCase()}
-          </Avatar>
-        }
-        title={
-          <Link href={`/profile/${owner._id}`} color="inherit">
-            {owner.username}
-          </Link>
-        }
-        subheader={getFullDate(createdAt)}
-      />
-      <CardMedia
-        component="img"
-        className={styles.cardMedia}
-        alt="recipe"
-        image={photo ? `${config.API_URL}/file/${photo}` : cakePlaceholder}
-        title={name}
-      />
-      <CardContent className={styles.cardContent}>
+    <CardContainer>
+      <CardHeader author={owner} createdAt={createdAt} />
+      <CardImage alt="recipe" image={photo ? `${config.API_URL}/file/${photo}` : cakePlaceholder} title={name} />
+      <CardBody className={styles.cardBody}>
         <IconButton
           className={styles.expandMoreIcon}
           onClick={() => setExpanded(!expanded)}
@@ -125,29 +94,23 @@ export function Recipe({
         <Typography align="center" color="textSecondary" component="p">
           {description}
         </Typography>
-      </CardContent>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
+        <Collapse className={styles.collapse} in={expanded} timeout="auto" unmountOnExit>
           <RecipeIngredients ingredients={ingredients} />
           <RecipeMethods methods={directions} />
           <RecipeHints hints={hints} />
-        </CardContent>
-      </Collapse>
-      <CardActions>
-        <Grid container spacing={2} justifyContent="flex-end">
-          <Grid item>
-            {favourite ? (
-              <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleRemoveFromFavourite}>
-                Usuń z ulubionych
-              </Button>
-            ) : (
-              <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleAddToFavourite}>
-                Dodaj do ulubionych
-              </Button>
-            )}
-          </Grid>
-        </Grid>
-      </CardActions>
-    </Card>
+        </Collapse>
+      </CardBody>
+      <CardFooter justifyContent="flex-end">
+        {favourite ? (
+          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleRemoveFromFavourite}>
+            Usuń z ulubionych
+          </Button>
+        ) : (
+          <Button size="small" color="primary" disabled={!UserSession.isActive} onClick={handleAddToFavourite}>
+            Dodaj do ulubionych
+          </Button>
+        )}
+      </CardFooter>
+    </CardContainer>
   );
 }

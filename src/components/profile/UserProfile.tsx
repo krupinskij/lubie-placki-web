@@ -1,12 +1,11 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+
+import { CardBody, CardContainer, CardFooter } from '../card/Card';
 
 import { Users } from '../../typings/types';
 
@@ -32,8 +31,8 @@ export function UserProfile({ _id, username, bio, avatar }: Users.User) {
   const styles = useStyles();
 
   return (
-    <Card className={styles.card} elevation={12}>
-      <CardContent>
+    <CardContainer>
+      <CardBody>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={2}>
             <Avatar
@@ -54,18 +53,14 @@ export function UserProfile({ _id, username, bio, avatar }: Users.User) {
             </Typography>
           </Grid>
         </Grid>
-      </CardContent>
+      </CardBody>
       {UserSession.userId === _id && (
-        <CardActions>
-          <Grid container spacing={2} justifyContent="flex-end">
-            <Grid item>
-              <Link component={Button} underline="none" href="/edit/profile">
-                Edytuj profil
-              </Link>
-            </Grid>
-          </Grid>
-        </CardActions>
+        <CardFooter justifyContent="flex-end">
+          <Link component={Button} underline="none" href="/edit/profile">
+            Edytuj profil
+          </Link>
+        </CardFooter>
       )}
-    </Card>
+    </CardContainer>
   );
 }
