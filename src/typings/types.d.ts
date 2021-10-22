@@ -104,4 +104,8 @@ export namespace Data {
   export type UserData = {
     user: Users.User;
   };
+
+  export type RandomRecipeData = {
+    randomRecipe: string;
+  };
 }
