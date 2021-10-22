@@ -1,9 +1,5 @@
 import { useFormik } from 'formik';
 import { useMutation } from 'react-apollo';
-import { useHistory } from 'react-router-dom';
-
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 
 import { SubmitButton } from '../button/SubmitButton';
 import { CardContainer } from '../card/Card';
@@ -11,6 +7,7 @@ import { FormActions, FormContainer, FormFields, FormHeader, FormLink } from '..
 import { FormEmailField, FormPasswordField } from '../form/Field';
 
 import { LOGIN_MUTATION } from '../../graphql/login.mutation';
+import { Data } from '../../typings/types';
 import { UserSession } from '../../utils/user-session';
 
 import * as Yup from 'yup';
@@ -21,8 +18,7 @@ const loginValidationSchema = Yup.object().shape({
 });
 
 export function LoginForm() {
-  const history = useHistory();
-  const [login] = useMutation(LOGIN_MUTATION);
+  const [login] = useMutation<Data.LoginData>(LOGIN_MUTATION);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -32,11 +28,13 @@ export function LoginForm() {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (loginInput) => {
-      const resp = await login({ variables: { credentials: loginInput } });
-      const { token, refreshToken } = resp.data.login;
-      UserSession.saveToken(token);
-      UserSession.saveRefreshToken(refreshToken);
-      window.location.href = '/';
+      const { data } = await login({ variables: { credentials: loginInput } });
+      if (data) {
+        const { token, refreshToken } = data.login;
+        UserSession.saveToken(token);
+        UserSession.saveRefreshToken(refreshToken);
+        window.location.href = '/';
+      }
     },
   });
 

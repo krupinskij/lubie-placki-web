@@ -15,6 +15,7 @@ import { CREATE_RECIPE_MUTATION } from '../../graphql/create-recipe.mutation';
 import { UPLOAD_PHOTO_MUTATION } from '../../graphql/upload-photo.mutation';
 import { ADD_PHOTO_TO_RECIPE_MUTATION } from '../../graphql/add-photo-to-recipe.mutation';
 
+import { Data } from '../../typings/types';
 import * as Yup from 'yup';
 
 const createRecipeValidationSchema = Yup.object().shape({
@@ -67,9 +68,9 @@ const typeOptions = [
 
 export function NewRecipeForm() {
   const history = useHistory();
-  const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION);
-  const [uploadPhoto] = useMutation(UPLOAD_PHOTO_MUTATION);
-  const [addPhotoToRecipe] = useMutation(ADD_PHOTO_TO_RECIPE_MUTATION);
+  const [createRecipe] = useMutation<Data.CreateRecipeData>(CREATE_RECIPE_MUTATION);
+  const [uploadPhoto] = useMutation<Data.UploadPhotoData>(UPLOAD_PHOTO_MUTATION);
+  const [addPhotoToRecipe] = useMutation<Data.AddPhotoToRecipeData>(ADD_PHOTO_TO_RECIPE_MUTATION);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -85,13 +86,13 @@ export function NewRecipeForm() {
     validateOnChange: true,
     onSubmit: async (recipeInput) => {
       const { filename, ...recipeData } = recipeInput;
-      const recipeResponse = await createRecipe({ variables: { credentials: recipeData } });
+      const { data: createRecipeData } = await createRecipe({ variables: { credentials: recipeData } });
       if (!!filename.length) {
-        const photoResponse = await uploadPhoto({ variables: { file: filename[0] } });
+        const { data: uploadPhotoData } = await uploadPhoto({ variables: { file: filename[0] } });
 
         const photoInput = {
-          photoId: photoResponse?.data?.uploadPhoto?._id,
-          recipeId: recipeResponse?.data?.createRecipe?._id,
+          photoId: uploadPhotoData?.uploadPhoto?._id,
+          recipeId: createRecipeData?.createRecipe?._id,
         };
 
         await addPhotoToRecipe({ variables: { input: photoInput } });
