@@ -7,6 +7,7 @@ import { FormTextField, FormEmailField, FormPasswordField } from '../form/Field'
 import { FormActions, FormContainer, FormFields, FormHeader, FormLink } from '../form/Form';
 
 import { REGISTER_MUTATION } from '../../graphql/register.mutation';
+import { Data } from '../../typings/types';
 import { UserSession } from '../../utils/user-session';
 
 import * as Yup from 'yup';
@@ -21,7 +22,7 @@ const registerValidationSchema = Yup.object().shape({
 });
 
 export function RegistrationForm() {
-  const [register] = useMutation(REGISTER_MUTATION);
+  const [register] = useMutation<Data.RegisterData>(REGISTER_MUTATION);
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -34,11 +35,13 @@ export function RegistrationForm() {
     validateOnChange: true,
     onSubmit: async (registerInput) => {
       const { repeatPassword, ...credentials } = registerInput;
-      const resp = await register({ variables: { credentials: credentials } });
-      const { token, refreshToken } = resp.data.login;
-      UserSession.saveToken(token);
-      UserSession.saveRefreshToken(refreshToken);
-      window.location.href = '/';
+      const { data } = await register({ variables: { credentials: credentials } });
+      if (data) {
+        const { token, refreshToken } = data.register;
+        UserSession.saveToken(token);
+        UserSession.saveRefreshToken(refreshToken);
+        window.location.href = '/';
+      }
     },
   });
 

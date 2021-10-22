@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import { CardBody, CardContainer, CardFooter } from '../card/Card';
 
 import { CREATE_COMMENT_MUTATION } from '../../graphql/create-comment';
+import { Data } from '../../typings/types';
 
 const useStyles = makeStyles({
   input: {
@@ -24,7 +25,7 @@ export function CommentInput({ recipe }: CommentInputProps) {
   const [comment, setComment] = useState('');
   const [error, setError] = useState(false);
 
-  const [createComment] = useMutation(CREATE_COMMENT_MUTATION, {
+  const [createComment] = useMutation<Data.CreateCommentData>(CREATE_COMMENT_MUTATION, {
     refetchQueries: ['CommentsByRecipeId'],
   });
 

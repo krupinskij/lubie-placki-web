@@ -10,12 +10,13 @@ import { ADD_AVATAR_TO_USER_MUTATION } from '../../graphql/add-avatar-to-user.mu
 import { UPLOAD_PHOTO_MUTATION } from '../../graphql/upload-photo.mutation';
 
 import * as Yup from 'yup';
+import { Data } from '../../typings/types';
 
 const editAvatarValidationSchema = Yup.object().shape({});
 
 export function EditAvatarForm() {
-  const [uploadPhoto] = useMutation(UPLOAD_PHOTO_MUTATION);
-  const [addAvatarToUser] = useMutation(ADD_AVATAR_TO_USER_MUTATION);
+  const [uploadPhoto] = useMutation<Data.UploadPhotoData>(UPLOAD_PHOTO_MUTATION);
+  const [addAvatarToUser] = useMutation<Data.AddAvatarToUserData>(ADD_AVATAR_TO_USER_MUTATION);
 
   const formik = useFormik({
     initialValues: {
@@ -25,9 +26,9 @@ export function EditAvatarForm() {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async ({ filename }) => {
-      const avatarResponse = await uploadPhoto({ variables: { file: filename[0] } });
+      const { data: avatarResponseData } = await uploadPhoto({ variables: { file: filename[0] } });
 
-      const avatarId = avatarResponse?.data?.uploadPhoto?._id;
+      const avatarId = avatarResponseData?.uploadPhoto?._id;
       await addAvatarToUser({ variables: { avatarInput: { avatarId } } });
     },
   });
