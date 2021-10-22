@@ -35,7 +35,7 @@ export function RegistrationForm() {
     onSubmit: async (registerInput) => {
       const { repeatPassword, ...credentials } = registerInput;
       const resp = await register({ variables: { credentials: credentials } });
-      const { token, refreshToken } = resp.data.login;
+      const { token, refreshToken } = resp.data.register;
       UserSession.saveToken(token);
       UserSession.saveRefreshToken(refreshToken);
       window.location.href = '/';
