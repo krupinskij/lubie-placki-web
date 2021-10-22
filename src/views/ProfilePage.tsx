@@ -21,7 +21,7 @@ export function ProfilePage() {
     setPage(page);
   }, [search]);
 
-  const { data: userData, error: userError, loading: userLoading } = useQuery(USER_QUERY, {
+  const { data: userData, error: userError, loading: userLoading } = useQuery<Data.UserData>(USER_QUERY, {
     variables: { id: params.id },
     fetchPolicy: 'cache-and-network',
   });
@@ -40,7 +40,7 @@ export function ProfilePage() {
   if (userData && recipeData) {
     return (
       <>
-        <UserProfile {...(userData as any).user} />
+        <UserProfile {...userData.user} />
         <RecipeList recipes={recipeData.userRecipes} page={page} />;
       </>
     );

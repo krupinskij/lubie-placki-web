@@ -100,4 +100,8 @@ export namespace Data {
   export type PaginatedCommentData = {
     commentsByRecipeId: PaginatedData<Comments.Comment>;
   };
+
+  export type UserData = {
+    user: Users.User;
+  };
 }

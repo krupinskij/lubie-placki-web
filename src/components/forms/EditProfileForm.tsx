@@ -17,7 +17,7 @@ const editProfileValidationSchema = Yup.object().shape({
 interface EditProfileFormProps {
   user: {
     username: string;
-    bio: string;
+    bio?: string;
   };
 }
 
