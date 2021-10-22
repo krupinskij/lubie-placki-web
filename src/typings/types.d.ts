@@ -70,3 +70,34 @@ export namespace Comments {
     };
   };
 }
+
+export namespace Data {
+  export type RecipeData = {
+    recipe: Recipe;
+  };
+
+  export type PaginatedData<T> = {
+    data: T[];
+    pages: number;
+  };
+
+  export type PaginatedRecipesData = {
+    recipes: PaginatedData<Recipes.Recipe>;
+  };
+
+  export type PaginatedFavouriteRecipesData = {
+    favouriteRecipes: PaginatedData<Recipes.Recipe>;
+  };
+
+  export type PaginatedTypeRecipesData = {
+    typeRecipes: PaginatedData<Recipes.Recipe>;
+  };
+
+  export type PaginatedUserRecipesData = {
+    userRecipes: PaginatedData<Recipes.Recipe>;
+  };
+
+  export type PaginatedCommentData = {
+    commentsByRecipeId: PaginatedData<Comments.Comment>;
+  };
+}
