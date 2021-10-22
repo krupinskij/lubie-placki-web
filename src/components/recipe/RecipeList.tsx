@@ -1,14 +1,13 @@
 import { PaginatedList } from '../pagination/PaginatedList';
 import { Recipe } from './Recipe';
 
-import { DocumentNode } from 'graphql';
+import { Data, Recipes } from '../../typings/types';
 
 interface RecipeListProps {
-  dataName: string;
-  query: DocumentNode;
-  variables?: {};
+  recipes: Data.PaginatedData<Recipes.Recipe>;
+  page: number;
 }
 
-export function RecipeList({ dataName, query, variables }: RecipeListProps) {
-  return <PaginatedList query={query} dataName={dataName} variables={variables} component={Recipe} />;
+export function RecipeList({ recipes, page }: RecipeListProps) {
+  return <PaginatedList data={recipes.data} page={page} pages={recipes.pages} component={Recipe} />;
 }

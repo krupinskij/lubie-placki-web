@@ -18,7 +18,7 @@ import { REMOVE_FROM_FAVOURITE_MUTATION } from '../../graphql/remove-from-favour
 import { ADD_TO_FAVOURITE_MUTATION } from '../../graphql/add-to-favourite.mutation';
 
 import { UserSession } from '../../utils/user-session';
-import { Recipes } from '../../typings/types';
+import { Data, Recipes } from '../../typings/types';
 
 import config from '../../config';
 
@@ -60,8 +60,8 @@ export function Recipe({
   const [expanded, setExpanded] = useState(false);
   const [favourite, setFavourite] = useState(isFavourite);
 
-  const [addToFavourite] = useMutation(ADD_TO_FAVOURITE_MUTATION);
-  const [removeFromFavourite] = useMutation(REMOVE_FROM_FAVOURITE_MUTATION);
+  const [addToFavourite] = useMutation<Data.AddToFavouriteData>(ADD_TO_FAVOURITE_MUTATION);
+  const [removeFromFavourite] = useMutation<Data.RemoveFromFavouriteData>(REMOVE_FROM_FAVOURITE_MUTATION);
 
   const handleAddToFavourite = async () => {
     await addToFavourite({ variables: { credentials: _id } });
